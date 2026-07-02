@@ -21,26 +21,27 @@ const db = firebase.database();
 const words = [
   "apple","banana","computer","keyboard","speed",
   "react","node","game","typing","focus",
-  "energy","rocket","matrix","system","battle"
+  "energy","rocket","matrix","system","battle",
+  "legend","victory","online","multiplayer","ranked"
 ];
 
 /* =========================
-   PLAYER STATE
+   PLAYER ID SYSTEM
 ========================= */
 let userId = localStorage.getItem("uid");
 
 if(!userId){
-  userId = "user_" + Math.random().toString(36).substring(2, 9);
+  userId = "user_" + Math.random().toString(36).substring(2, 10);
   localStorage.setItem("uid", userId);
 }
-
-let roomId = "";
-let playerSide = "";
-let currentWord = "";
 
 /* =========================
    GAME STATE
 ========================= */
+let roomId = "";
+let playerSide = "";
+let currentWord = "";
+
 let score = 0;
 let time = 10;
 let level = 1;
@@ -60,7 +61,7 @@ const levelEl = document.querySelector(".level-display");
 const comboEl = document.querySelector(".combo-display");
 
 /* =========================
-   SCREEN CONTROL
+   SCREEN SYSTEM
 ========================= */
 function showScreen(name){
   document.querySelectorAll(".screen").forEach(s => s.classList.add("hidden"));
@@ -68,7 +69,78 @@ function showScreen(name){
 }
 
 /* =========================
-   FIND MATCH (QUEUE SYSTEM)
+   SOLO MODE
+========================= */
+let soloActive = false;
+let soloTime = 30;
+let soloScore = 0;
+let soloTimer;
+
+function startSolo(){
+
+  showScreen("game-screen");
+
+  soloActive = true;
+  soloTime = 30;
+  soloScore = 0;
+
+  currentWord = randomWord();
+  wordEl.textContent = currentWord;
+
+  input.value = "";
+  input.focus();
+
+  soloTimer = setInterval(()=>{
+
+    soloTime--;
+    timeEl.textContent = soloTime;
+
+    if(soloTime <= 0){
+      endSolo();
+    }
+
+  },1000);
+}
+
+/* =========================
+   SOLO INPUT HANDLER
+========================= */
+input.addEventListener("input", ()=>{
+
+  if(soloActive && !gameActive){
+
+    if(input.value.toLowerCase() === currentWord.toLowerCase()){
+
+      soloScore++;
+
+      input.value = "";
+      currentWord = randomWord();
+      wordEl.textContent = currentWord;
+
+      scoreEls.forEach(e => e.textContent = soloScore);
+    }
+  }
+
+  if(gameActive){
+    handleMultiplayerInput();
+  }
+});
+
+/* =========================
+   END SOLO
+========================= */
+function endSolo(){
+
+  clearInterval(soloTimer);
+  soloActive = false;
+
+  alert("Solo Finished! Score: " + soloScore);
+
+  showScreen("menu-screen");
+}
+
+/* =========================
+   MATCHMAKING SYSTEM
 ========================= */
 function findMatch(){
 
@@ -76,18 +148,19 @@ function findMatch(){
 
   db.ref("queue/" + userId).set({
     mmr: 1200,
-    timestamp: Date.now()
+    time: Date.now()
   });
 
   listenQueue();
 }
 
 /* =========================
-   LISTEN MATCHMAKING
+   LISTEN QUEUE
 ========================= */
 function listenQueue(){
 
   db.ref("queue").on("value", snap => {
+
     const data = snap.val();
     if(!data) return;
 
@@ -118,36 +191,51 @@ function createRoom(p1, p2){
     p1: 0,
     p2: 0,
     winner: "",
-    status: "playing",
     players: {
       p1: p1,
       p2: p2
     }
   });
 
-  showScreen("game-screen");
-
   if(userId === p1) playerSide = "p1";
   else playerSide = "p2";
 
+  showVsScreen();
   listenRoom();
-  startGame();
+
+  setTimeout(()=>{
+    showScreen("game-screen");
+    startGame();
+  }, 2500);
 }
 
 /* =========================
-   LISTEN ROOM (REAL TIME)
+   VS SCREEN
+========================= */
+function showVsScreen(){
+
+  db.ref("users/" + userId).once("value").then(snap => {
+    let me = snap.val() || { mmr: 1200 };
+
+    document.getElementById("p1Mmr").textContent = me.mmr;
+    document.getElementById("p2Mmr").textContent = 1200;
+  });
+
+  showScreen("vs-screen");
+}
+
+/* =========================
+   LISTEN ROOM
 ========================= */
 function listenRoom(){
 
   db.ref("rooms/" + roomId).on("value", snap => {
+
     const data = snap.val();
     if(!data) return;
 
     currentWord = data.word;
     wordEl.textContent = data.word;
-
-    document.querySelector("#p1Score") && (document.querySelector("#p1Score").textContent = data.p1);
-    document.querySelector("#p2Score") && (document.querySelector("#p2Score").textContent = data.p2);
 
     if(data.winner){
       endGame(data.winner);
@@ -164,17 +252,16 @@ function startGame(){
   time = 10;
   level = 1;
   combo = 0;
+
   gameActive = true;
 
-  input.disabled = false;
   input.value = "";
   input.focus();
 
-  updateUI();
-
   timer = setInterval(()=>{
+
     time--;
-    updateUI();
+    timeEl.textContent = time;
 
     if(time <= 0){
       finishGame();
@@ -184,11 +271,9 @@ function startGame(){
 }
 
 /* =========================
-   INPUT SYSTEM
+   MULTIPLAYER INPUT
 ========================= */
-input.addEventListener("input", ()=>{
-
-  if(!gameActive) return;
+function handleMultiplayerInput(){
 
   if(input.value.toLowerCase() === currentWord.toLowerCase()){
 
@@ -196,26 +281,22 @@ input.addEventListener("input", ()=>{
     combo++;
 
     if(combo % 3 === 0) time += 2;
-
-    if(score % 5 === 0){
-      level++;
-      time += 2;
-    }
+    if(score % 5 === 0) level++;
 
     db.ref("rooms/" + roomId + "/" + playerSide)
-    .transaction(v => (v || 0) + 1);
+      .transaction(v => (v || 0) + 1);
 
     db.ref("rooms/" + roomId + "/word")
-    .set(randomWord());
+      .set(randomWord());
 
     input.value = "";
-
-    updateUI();
   }
-});
+
+  updateUI();
+}
 
 /* =========================
-   FINISH GAME (TIME OUT)
+   FINISH GAME
 ========================= */
 function finishGame(){
 
@@ -223,6 +304,7 @@ function finishGame(){
   gameActive = false;
 
   db.ref("rooms/" + roomId).once("value", snap => {
+
     const data = snap.val();
 
     if(!data.winner){
@@ -235,16 +317,16 @@ function finishGame(){
 }
 
 /* =========================
-   END GAME (RESULT)
+   END GAME + RANKED SYSTEM
 ========================= */
 function endGame(winner){
 
   clearInterval(timer);
   gameActive = false;
 
-  let resultText = (winner === playerSide) ? "YOU WIN 🏆" : "YOU LOSE 💀";
+  let result = (winner === playerSide) ? "YOU WIN 🏆" : "YOU LOSE 💀";
 
-  document.getElementById("resultTitle").textContent = resultText;
+  document.getElementById("resultTitle").textContent = result;
 
   updateMMR(winner);
 
@@ -252,7 +334,7 @@ function endGame(winner){
 }
 
 /* =========================
-   RANKED SYSTEM (MMR)
+   MMR SYSTEM
 ========================= */
 function updateMMR(winner){
 
@@ -275,11 +357,33 @@ function updateMMR(winner){
 
     return user;
   });
+
+  updateLeaderboard();
 }
 
 /* =========================
-   UI UPDATE
+   LEADERBOARD SYSTEM
 ========================= */
+function updateLeaderboard(){
+
+  db.ref("users/" + userId).once("value", snap => {
+
+    const data = snap.val();
+
+    db.ref("leaderboard/" + userId).set({
+      mmr: data.mmr,
+      wins: data.wins || 0
+    });
+  });
+}
+
+/* =========================
+   UTILITY FUNCTIONS
+========================= */
+function randomWord(){
+  return words[Math.floor(Math.random() * words.length)];
+}
+
 function updateUI(){
   scoreEls.forEach(e => e.textContent = score);
   timeEl.textContent = time;
@@ -288,20 +392,17 @@ function updateUI(){
 }
 
 /* =========================
-   RANDOM WORD
-========================= */
-function randomWord(){
-  return words[Math.floor(Math.random() * words.length)];
-}
-
-/* =========================
    NAVIGATION
 ========================= */
-function backToLobby(){
-  showScreen("lobby-screen");
+function backToMenu(){
+  showScreen("menu-screen");
 }
 
 function cancelMatch(){
   db.ref("queue/" + userId).remove();
-  backToLobby();
+  backToMenu();
+}
+
+function leaveGame(){
+  backToMenu();
 }
