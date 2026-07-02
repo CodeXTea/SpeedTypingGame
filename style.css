@@ -1,0 +1,237 @@
+/* =========================
+   RESET
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+body {
+  height: 100vh;
+  overflow: hidden;
+  background: #0b0f1a;
+  color: white;
+}
+
+.bg {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #1b2a4a, #0b0f1a);
+  z-index: -1;
+  animation: bgPulse 6s infinite alternate;
+}
+
+@keyframes bgPulse {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.2); }
+}
+
+/* =========================
+   SCREEN SYSTEM
+========================= */
+.screen {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.4s ease;
+}
+
+.hidden {
+  display: none;
+}
+
+/* =========================
+   CARD UI (LOBBY + RESULT + QUEUE)
+========================= */
+.card {
+  background: rgba(255,255,255,0.05);
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  width: 85%;
+  max-width: 420px;
+  box-shadow: 0 0 30px rgba(0,255,200,0.15);
+  backdrop-filter: blur(12px);
+  animation: popIn 0.5s ease;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* =========================
+   TITLE TEXT
+========================= */
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #00ffcc;
+}
+
+p {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+button {
+  margin-top: 15px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #00ffcc;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px #00ffcc;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+/* RED BUTTON */
+button.cancel,
+button.leave {
+  background: #ff4d4d;
+  color: white;
+}
+
+/* =========================
+   SMALL INFO TEXT
+========================= */
+.small-info {
+  margin-top: 10px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* =========================
+   LOADER (MATCHMAKING)
+========================= */
+.loader {
+  margin: 20px auto;
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(0,255,204,0.2);
+  border-top: 4px solid #00ffcc;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+/* =========================
+   HUD (GAME SCREEN)
+========================= */
+.hud {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.hud div {
+  background: rgba(255,255,255,0.05);
+  padding: 6px 10px;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+
+/* =========================
+   GAME BOX
+========================= */
+.game-box {
+  text-align: center;
+}
+
+.word {
+  font-size: 42px;
+  margin-bottom: 20px;
+  color: #00ffcc;
+  text-shadow: 0 0 15px #00ffcc;
+  animation: glow 1s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #00ffcc; }
+  to { text-shadow: 0 0 25px #00ffcc; }
+}
+
+/* =========================
+   INPUT FIELD
+========================= */
+input {
+  padding: 12px;
+  width: 80%;
+  border: none;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus {
+  box-shadow: 0 0 12px #00ffcc;
+  transform: scale(1.02);
+}
+
+/* =========================
+   RESULT SCREEN
+========================= */
+.result-screen h1 {
+  color: gold;
+}
+
+/* =========================
+   SHAKE EFFECT (OPTIONAL JS TRIGGER)
+========================= */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+@media (max-width: 500px) {
+  .word {
+    font-size: 30px;
+  }
+
+  input {
+    width: 90%;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .hud {
+    font-size: 10px;
+  }
+}

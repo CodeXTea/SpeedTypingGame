@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Typing Battle Ranked</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
+</head>
+
+<body>
+
+<!-- ================= BACKGROUND ================= -->
+<div class="bg"></div>
+
+<!-- ================= LOBBY SCREEN ================= -->
+<div class="screen lobby-screen">
+
+  <div class="card">
+
+    <h1>⚔️ TYPING BATTLE RANKED</h1>
+
+    <p>Fight players worldwide in real-time typing duel</p>
+
+    <button onclick="findMatch()">⚡ Play Ranked</button>
+
+    <div class="small-info">
+      🏆 Your MMR: <span id="mmr">1200</span>
+    </div>
+
+    <div class="small-info">
+      🔎 Searching opponent...
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ================= MATCHMAKING SCREEN ================= -->
+<div class="screen queue-screen hidden">
+
+  <div class="card">
+
+    <h1>🔎 Searching Match...</h1>
+
+    <p>Please wait while we find your opponent</p>
+
+    <div class="loader"></div>
+
+    <button onclick="cancelMatch()">Cancel</button>
+
+  </div>
+
+</div>
+
+<!-- ================= GAME SCREEN ================= -->
+<div class="screen game-screen hidden">
+
+  <!-- HUD -->
+  <div class="hud">
+
+    <div>Score: <span class="score">0</span></div>
+    <div>Time: <span class="time">10</span>s</div>
+    <div>Level: <span class="level-display">1</span></div>
+    <div>🔥 Combo: <span class="combo-display">0</span></div>
+
+  </div>
+
+  <!-- GAME BOX -->
+  <div class="game-box">
+
+    <h1 class="word">---</h1>
+
+    <input id="input" placeholder="type here..." autocomplete="off">
+
+    <button onclick="leaveGame()">Leave Game</button>
+
+  </div>
+
+</div>
+
+<!-- ================= RESULT SCREEN ================= -->
+<div class="screen result-screen hidden">
+
+  <div class="card">
+
+    <h1 id="resultTitle">🏆 Result</h1>
+
+    <p>Your Score: <span class="score">0</span></p>
+
+    <p id="rankChange">MMR +0</p>
+
+    <button onclick="backToLobby()">Back to Lobby</button>
+
+    <button onclick="findMatch()">Play Again</button>
+
+  </div>
+
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script src="firebase-config.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
