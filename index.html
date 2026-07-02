@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Typing Battle Ranked</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Typing Battle ESports</title>
 
   <link rel="stylesheet" href="style.css">
 
@@ -17,41 +18,65 @@
 <!-- ================= BACKGROUND ================= -->
 <div class="bg"></div>
 
-<!-- ================= LOBBY SCREEN ================= -->
-<div class="screen lobby-screen">
+<!-- ================= MENU SCREEN ================= -->
+<div class="screen menu-screen">
 
   <div class="card">
 
-    <h1>⚔️ TYPING BATTLE RANKED</h1>
+    <h1>⚡ Typing Battle</h1>
+    <p>Select Game Mode</p>
 
-    <p>Fight players worldwide in real-time typing duel</p>
+    <button onclick="startSolo()">🎯 Solo Mode</button>
 
-    <button onclick="findMatch()">⚡ Play Ranked</button>
-
-    <div class="small-info">
-      🏆 Your MMR: <span id="mmr">1200</span>
-    </div>
+    <button onclick="findMatch()">⚔️ Multiplayer Ranked</button>
 
     <div class="small-info">
-      🔎 Searching opponent...
+      🏆 MMR: <span id="mmr">1200</span>
     </div>
 
   </div>
 
 </div>
 
-<!-- ================= MATCHMAKING SCREEN ================= -->
+<!-- ================= QUEUE SCREEN ================= -->
 <div class="screen queue-screen hidden">
 
   <div class="card">
 
-    <h1>🔎 Searching Match...</h1>
-
-    <p>Please wait while we find your opponent</p>
+    <h1>🔎 Finding Opponent...</h1>
 
     <div class="loader"></div>
 
+    <p>Please wait...</p>
+
     <button onclick="cancelMatch()">Cancel</button>
+
+  </div>
+
+</div>
+
+<!-- ================= VS SCREEN ================= -->
+<div class="screen vs-screen hidden">
+
+  <div class="vs-container">
+
+    <div class="player-card left">
+
+      <div class="badge" id="p1Rank">Bronze</div>
+      <h2>YOU</h2>
+      <p id="p1Mmr">1200</p>
+
+    </div>
+
+    <div class="vs-text">VS</div>
+
+    <div class="player-card right">
+
+      <div class="badge" id="p2Rank">Silver</div>
+      <h2>OPPONENT</h2>
+      <p id="p2Mmr">1200</p>
+
+    </div>
 
   </div>
 
@@ -60,7 +85,6 @@
 <!-- ================= GAME SCREEN ================= -->
 <div class="screen game-screen hidden">
 
-  <!-- HUD -->
   <div class="hud">
 
     <div>Score: <span class="score">0</span></div>
@@ -70,14 +94,13 @@
 
   </div>
 
-  <!-- GAME BOX -->
   <div class="game-box">
 
     <h1 class="word">---</h1>
 
     <input id="input" placeholder="type here..." autocomplete="off">
 
-    <button onclick="leaveGame()">Leave Game</button>
+    <button onclick="leaveGame()">Leave</button>
 
   </div>
 
@@ -90,17 +113,20 @@
 
     <h1 id="resultTitle">🏆 Result</h1>
 
-    <p>Your Score: <span class="score">0</span></p>
+    <p>Score: <span class="score">0</span></p>
 
     <p id="rankChange">MMR +0</p>
 
-    <button onclick="backToLobby()">Back to Lobby</button>
+    <button onclick="backToMenu()">Back to Menu</button>
 
     <button onclick="findMatch()">Play Again</button>
 
   </div>
 
 </div>
+
+<!-- ================= SOLO SCREEN (OPTIONAL FLOW USE SAME GAME SCREEN) ================= -->
+<!-- SOLO MODE USES GAME SCREEN -->
 
 <!-- ================= SCRIPT ================= -->
 <script src="firebase-config.js"></script>
