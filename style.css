@@ -1,294 +1,109 @@
-/* =========================
-   RESET
-========================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial;
 }
 
-/* =========================
-   BACKGROUND
-========================= */
-body {
-  height: 100vh;
-  overflow: hidden;
-  background: #0b0f1a;
-  color: white;
+body{
+  background:#0b0f1a;
+  color:white;
+  overflow:hidden;
 }
 
-.bg {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at top, #1b2a4a, #0b0f1a);
-  z-index: -1;
-  animation: bgPulse 6s infinite alternate;
+.bg{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle,#1b2a4a,#0b0f1a);
+  z-index:-1;
 }
 
-@keyframes bgPulse {
-  from { filter: brightness(1); }
-  to { filter: brightness(1.2); }
+/* SCREEN */
+.screen{
+  width:100%;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-/* =========================
-   SCREEN SYSTEM
-========================= */
-.screen {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.hidden{display:none}
+
+/* CARD */
+.card,.profile-card{
+  background:rgba(255,255,255,0.05);
+  padding:20px;
+  border-radius:15px;
+  width:90%;
+  max-width:400px;
+  text-align:center;
+  backdrop-filter:blur(10px);
 }
 
-.hidden {
-  display: none;
+/* BUTTON */
+button{
+  width:100%;
+  margin:8px 0;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#00ffcc;
+  font-weight:bold;
 }
 
-/* =========================
-   CARD UI (MENU / RESULT / QUEUE)
-========================= */
-.card {
-  background: rgba(255,255,255,0.05);
-  padding: 25px;
-  border-radius: 20px;
-  text-align: center;
-  width: 90%;
-  max-width: 420px;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 0 25px rgba(0,255,200,0.15);
-  animation: popIn 0.5s ease;
+/* HUD */
+.hud{
+  position:absolute;
+  top:10px;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+  font-size:12px;
 }
 
-@keyframes popIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+/* WORD */
+.word{
+  font-size:40px;
+  color:#00ffcc;
 }
 
-/* =========================
-   TITLE
-========================= */
-h1 {
-  font-size: 26px;
-  color: #00ffcc;
-  margin-bottom: 10px;
+/* VS */
+.vs-container{
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
 }
 
-p {
-  font-size: 14px;
-  opacity: 0.8;
+.vs-text{
+  font-size:40px;
+  color:#00ffcc;
 }
 
-/* =========================
-   BUTTONS (AAA STYLE)
-========================= */
-button {
-  margin-top: 12px;
-  padding: 10px 16px;
-  width: 100%;
-  border: none;
-  border-radius: 12px;
-  background: #00ffcc;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
+/* RANK */
+.rank-badge{
+  padding:5px 10px;
+  border-radius:20px;
+  font-weight:bold;
+  display:inline-block;
+  animation:pulse 1.5s infinite;
 }
 
-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px #00ffcc;
+@keyframes pulse{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.1)}
+  100%{transform:scale(1)}
 }
 
-button:active {
-  transform: scale(0.95);
-}
+.bronze{background:#cd7f32}
+.silver{background:#c0c0c0}
+.gold{background:#ffd700}
+.platinum{background:#00ffcc}
+.diamond{background:#00aaff}
 
-/* CANCEL BUTTON */
-button.cancel {
-  background: #ff4d4d;
-  color: white;
-}
-
-/* =========================
-   SMALL INFO
-========================= */
-.small-info {
-  margin-top: 10px;
-  font-size: 13px;
-  opacity: 0.8;
-}
-
-/* =========================
-   LOADER (QUEUE)
-========================= */
-.loader {
-  margin: 20px auto;
-  width: 50px;
-  height: 50px;
-  border: 4px solid rgba(0,255,204,0.2);
-  border-top: 4px solid #00ffcc;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  100% { transform: rotate(360deg); }
-}
-
-/* =========================
-   HUD (GAME UI)
-========================= */
-.hud {
-  position: absolute;
-  top: 10px;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  font-size: 12px;
-}
-
-.hud div {
-  background: rgba(255,255,255,0.05);
-  padding: 6px 10px;
-  border-radius: 10px;
-  backdrop-filter: blur(6px);
-}
-
-/* =========================
-   GAME BOX
-========================= */
-.game-box {
-  text-align: center;
-}
-
-.word {
-  font-size: 42px;
-  margin-bottom: 20px;
-  color: #00ffcc;
-  text-shadow: 0 0 20px #00ffcc;
-  animation: glow 1s infinite alternate;
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 5px #00ffcc; }
-  to { text-shadow: 0 0 25px #00ffcc; }
-}
-
-/* =========================
-   INPUT
-========================= */
-input {
-  padding: 12px;
-  width: 80%;
-  border: none;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 16px;
-  outline: none;
-  transition: 0.3s;
-}
-
-input:focus {
-  box-shadow: 0 0 12px #00ffcc;
-  transform: scale(1.02);
-}
-
-/* =========================
-   VS SCREEN (ESPORTS ANIMATION)
-========================= */
-.vs-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 100%;
-  animation: zoomIn 0.8s ease;
-}
-
-@keyframes zoomIn {
-  from { transform: scale(0.5); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.player-card {
-  width: 40%;
-  padding: 20px;
-  background: rgba(255,255,255,0.05);
-  border-radius: 15px;
-  text-align: center;
-  box-shadow: 0 0 20px rgba(0,255,200,0.15);
-}
-
-/* VS TEXT */
-.vs-text {
-  font-size: 50px;
-  font-weight: bold;
-  color: #00ffcc;
-  animation: pulse 1s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
-
-/* =========================
-   RANK BADGES
-========================= */
-.badge {
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  margin-bottom: 10px;
-  display: inline-block;
-}
-
-.bronze { background: #cd7f32; }
-.silver { background: #c0c0c0; }
-.gold { background: #ffd700; }
-.platinum { background: #00ffcc; }
-.diamond { background: #00aaff; }
-
-/* =========================
-   RESULT SCREEN
-========================= */
-.result-screen h1 {
-  color: gold;
-}
-
-/* =========================
-   MOBILE RESPONSIVE
-========================= */
-@media (max-width: 500px) {
-
-  .word {
-    font-size: 30px;
-  }
-
-  input {
-    width: 90%;
-  }
-
-  button {
-    font-size: 14px;
-  }
-
-  .hud {
-    font-size: 10px;
-  }
-
-  .vs-container {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .player-card {
-    width: 80%;
-  }
-
-  .vs-text {
-    font-size: 40px;
-  }
+/* AVATAR */
+.avatar-wrapper img{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  border:2px solid #00ffcc;
 }
