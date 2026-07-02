@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Typing Battle ESports</title>
 
   <link rel="stylesheet" href="style.css">
@@ -15,122 +14,103 @@
 
 <body>
 
-<!-- ================= BACKGROUND ================= -->
 <div class="bg"></div>
 
-<!-- ================= MENU SCREEN ================= -->
+<!-- ================= MENU ================= -->
 <div class="screen menu-screen">
-
   <div class="card">
-
     <h1>⚡ Typing Battle</h1>
-    <p>Select Game Mode</p>
 
     <button onclick="startSolo()">🎯 Solo Mode</button>
-
-    <button onclick="findMatch()">⚔️ Multiplayer Ranked</button>
+    <button onclick="findMatch()">⚔️ Ranked Multiplayer</button>
+    <button onclick="openProfile()">👤 Profile</button>
 
     <div class="small-info">
       🏆 MMR: <span id="mmr">1200</span>
     </div>
-
   </div>
-
 </div>
 
-<!-- ================= QUEUE SCREEN ================= -->
+<!-- ================= QUEUE ================= -->
 <div class="screen queue-screen hidden">
-
   <div class="card">
-
-    <h1>🔎 Finding Opponent...</h1>
-
+    <h1>Searching Match...</h1>
     <div class="loader"></div>
-
-    <p>Please wait...</p>
-
     <button onclick="cancelMatch()">Cancel</button>
-
   </div>
-
 </div>
 
 <!-- ================= VS SCREEN ================= -->
 <div class="screen vs-screen hidden">
-
   <div class="vs-container">
-
-    <div class="player-card left">
-
-      <div class="badge" id="p1Rank">Bronze</div>
-      <h2>YOU</h2>
+    <div class="player-card">
+      <h2 id="p1Name">YOU</h2>
       <p id="p1Mmr">1200</p>
-
+      <div id="p1Rank" class="rank-badge bronze">BRONZE</div>
     </div>
 
     <div class="vs-text">VS</div>
 
-    <div class="player-card right">
-
-      <div class="badge" id="p2Rank">Silver</div>
-      <h2>OPPONENT</h2>
+    <div class="player-card">
+      <h2 id="p2Name">OPPONENT</h2>
       <p id="p2Mmr">1200</p>
-
+      <div id="p2Rank" class="rank-badge silver">SILVER</div>
     </div>
-
   </div>
-
 </div>
 
-<!-- ================= GAME SCREEN ================= -->
+<!-- ================= GAME ================= -->
 <div class="screen game-screen hidden">
 
   <div class="hud">
-
     <div>Score: <span class="score">0</span></div>
-    <div>Time: <span class="time">10</span>s</div>
+    <div>Time: <span class="time">10</span></div>
     <div>Level: <span class="level-display">1</span></div>
-    <div>🔥 Combo: <span class="combo-display">0</span></div>
-
+    <div>Combo: <span class="combo-display">0</span></div>
   </div>
 
   <div class="game-box">
-
     <h1 class="word">---</h1>
-
-    <input id="input" placeholder="type here..." autocomplete="off">
-
+    <input id="input" placeholder="type here...">
     <button onclick="leaveGame()">Leave</button>
-
   </div>
-
 </div>
 
-<!-- ================= RESULT SCREEN ================= -->
+<!-- ================= RESULT ================= -->
 <div class="screen result-screen hidden">
-
   <div class="card">
-
-    <h1 id="resultTitle">🏆 Result</h1>
-
+    <h1 id="resultTitle">Result</h1>
     <p>Score: <span class="score">0</span></p>
-
     <p id="rankChange">MMR +0</p>
 
-    <button onclick="backToMenu()">Back to Menu</button>
-
+    <button onclick="backToMenu()">Menu</button>
     <button onclick="findMatch()">Play Again</button>
+  </div>
+</div>
 
+<!-- ================= PROFILE ================= -->
+<div class="screen profile-screen hidden">
+
+  <div class="profile-card">
+
+    <div class="avatar-wrapper">
+      <img id="avatarImg" src="https://i.imgur.com/8Km9tLL.png">
+      <input type="file" id="avatarInput">
+    </div>
+
+    <h2 id="profileName">Player</h2>
+
+    <div id="rankBadge" class="rank-badge bronze">BRONZE</div>
+
+    <p>MMR: <span id="profileMmr">1200</span></p>
+    <p>Wins: <span id="profileWins">0</span></p>
+    <p>Losses: <span id="profileLosses">0</span></p>
+
+    <button onclick="backToMenu()">Back</button>
   </div>
 
 </div>
 
-<!-- ================= SOLO SCREEN (OPTIONAL FLOW USE SAME GAME SCREEN) ================= -->
-<!-- SOLO MODE USES GAME SCREEN -->
-
-<!-- ================= SCRIPT ================= -->
-<script src="firebase-config.js"></script>
 <script src="script.js"></script>
-
 </body>
 </html>
