@@ -1,116 +1,1999 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Typing Battle ESports</title>
 
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Typing Battle ESports</title>
+
+    <meta name="description" content="Modern Typing Battle Game">
+
+    <meta name="theme-color" content="#0f172a">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
 </head>
 
 <body>
 
-<div class="bg"></div>
+<!-- =============================== -->
+<!-- LOADING SCREEN -->
+<!-- =============================== -->
 
-<!-- ================= MENU ================= -->
-<div class="screen menu-screen">
-  <div class="card">
-    <h1>⚡ Typing Battle</h1>
+<div id="loadingScreen">
 
-    <button onclick="startSolo()">🎯 Solo Mode</button>
-    <button onclick="findMatch()">⚔️ Ranked Multiplayer</button>
-    <button onclick="openProfile()">👤 Profile</button>
+    <div class="loading-box">
 
-    <div class="small-info">
-      🏆 MMR: <span id="mmr">1200</span>
-    </div>
-  </div>
-</div>
+        <h1>⌨ Typing Battle</h1>
 
-<!-- ================= QUEUE ================= -->
-<div class="screen queue-screen hidden">
-  <div class="card">
-    <h1>Searching Match...</h1>
-    <div class="loader"></div>
-    <button onclick="cancelMatch()">Cancel</button>
-  </div>
-</div>
+        <div class="loading-circle"></div>
 
-<!-- ================= VS SCREEN ================= -->
-<div class="screen vs-screen hidden">
-  <div class="vs-container">
-    <div class="player-card">
-      <h2 id="p1Name">YOU</h2>
-      <p id="p1Mmr">1200</p>
-      <div id="p1Rank" class="rank-badge bronze">BRONZE</div>
+        <p>Loading Assets...</p>
+
     </div>
 
-    <div class="vs-text">VS</div>
-
-    <div class="player-card">
-      <h2 id="p2Name">OPPONENT</h2>
-      <p id="p2Mmr">1200</p>
-      <div id="p2Rank" class="rank-badge silver">SILVER</div>
-    </div>
-  </div>
 </div>
 
-<!-- ================= GAME ================= -->
-<div class="screen game-screen hidden">
+<!-- =============================== -->
+<!-- BACKGROUND -->
+<!-- =============================== -->
 
-  <div class="hud">
-    <div>Score: <span class="score">0</span></div>
-    <div>Time: <span class="time">10</span></div>
-    <div>Level: <span class="level-display">1</span></div>
-    <div>Combo: <span class="combo-display">0</span></div>
-  </div>
+<div class="background">
 
-  <div class="game-box">
-    <h1 class="word">---</h1>
-    <input id="input" placeholder="type here...">
-    <button onclick="leaveGame()">Leave</button>
-  </div>
+    <div class="gradient"></div>
+
+    <div class="particles" id="particles"></div>
+
 </div>
 
-<!-- ================= RESULT ================= -->
-<div class="screen result-screen hidden">
-  <div class="card">
-    <h1 id="resultTitle">Result</h1>
-    <p>Score: <span class="score">0</span></p>
-    <p id="rankChange">MMR +0</p>
+<!-- =============================== -->
+<!-- TOP NAVBAR -->
+<!-- =============================== -->
 
-    <button onclick="backToMenu()">Menu</button>
-    <button onclick="findMatch()">Play Again</button>
-  </div>
-</div>
+<header class="navbar">
 
-<!-- ================= PROFILE ================= -->
-<div class="screen profile-screen hidden">
+    <div class="logo">
 
-  <div class="profile-card">
+        <i class="fa-solid fa-keyboard"></i>
 
-    <div class="avatar-wrapper">
-      <img id="avatarImg" src="https://i.imgur.com/8Km9tLL.png">
-      <input type="file" id="avatarInput">
+        <span>Typing Battle</span>
+
     </div>
 
-    <h2 id="profileName">Player</h2>
+    <div class="navbar-right">
 
-    <div id="rankBadge" class="rank-badge bronze">BRONZE</div>
+        <button class="icon-btn" id="soundBtn">
 
-    <p>MMR: <span id="profileMmr">1200</span></p>
-    <p>Wins: <span id="profileWins">0</span></p>
-    <p>Losses: <span id="profileLosses">0</span></p>
+            <i class="fa-solid fa-volume-high"></i>
 
-    <button onclick="backToMenu()">Back</button>
-  </div>
+        </button>
+
+        <button class="icon-btn" id="notificationBtn">
+
+            <i class="fa-solid fa-bell"></i>
+
+        </button>
+
+        <button class="icon-btn" id="settingBtn">
+
+            <i class="fa-solid fa-gear"></i>
+
+        </button>
+
+    </div>
+
+</header>
+
+<!-- =============================== -->
+<!-- PLAYER PROFILE -->
+<!-- =============================== -->
+
+<section class="top-profile">
+
+    <div class="profile-card">
+
+        <img src="assets/avatar/default.png"
+             class="avatar"
+             id="playerAvatar">
+
+        <div class="profile-info">
+
+            <h2 id="playerName">
+
+                Player
+
+            </h2>
+
+            <p id="playerRank">
+
+                Bronze I
+
+            </p>
+
+        </div>
+
+        <div class="profile-level">
+
+            <h2>
+
+                Lv <span id="playerLevel">1</span>
+
+            </h2>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =============================== -->
+<!-- XP BAR -->
+<!-- =============================== -->
+
+<section class="xp-container">
+
+    <div class="xp-text">
+
+        EXP
+
+        <span id="xpValue">
+
+            0 / 100
+
+        </span>
+
+    </div>
+
+    <div class="xp-bar">
+
+        <div class="xp-fill"
+             id="xpFill">
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =============================== -->
+<!-- ONLINE INFO -->
+<!-- =============================== -->
+
+<section class="online-status">
+
+    <div class="status-card">
+
+        <i class="fa-solid fa-circle green"></i>
+
+        Online Players
+
+        <span id="onlinePlayers">
+
+            0
+
+        </span>
+
+    </div>
+
+    <div class="status-card">
+
+        <i class="fa-solid fa-trophy"></i>
+
+        Rank
+
+        <span id="rankName">
+
+            Bronze
+
+        </span>
+
+    </div>
+
+    <div class="status-card">
+
+        <i class="fa-solid fa-fire"></i>
+
+        Win Streak
+
+        <span id="winStreak">
+
+            0
+
+        </span>
+
+    </div>
+
+</section>
+
+<!-- =============================== -->
+<!-- DAILY MISSION -->
+<!-- =============================== -->
+
+<section class="dailyMission">
+
+    <div class="mission-card">
+
+        <h2>
+
+            🎯 Daily Mission
+
+        </h2>
+
+        <ul>
+
+            <li>
+
+                Type 300 Words
+
+            </li>
+
+            <li>
+
+                Win 3 Ranked Matches
+
+            </li>
+
+            <li>
+
+                Reach 95% Accuracy
+
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- =============================== -->
+<!-- MAIN MENU (akan disambung pada Bahagian 2) -->
+<!-- =============================== -->
+<!-- =============================== -->
+<!-- MAIN MENU -->
+<!-- =============================== -->
+
+<section class="screen menu-screen" id="menuScreen">
+
+    <div class="menu-container">
+
+        <div class="menu-header">
+
+            <h1>⚡ Typing Battle ESports</h1>
+
+            <p>
+                Improve your typing speed and climb the global leaderboard.
+            </p>
+
+        </div>
+
+        <!-- MAIN BUTTONS -->
+        <div class="menu-buttons">
+
+            <button id="soloBtn" class="menu-btn primary">
+
+                <i class="fa-solid fa-keyboard"></i>
+
+                <span>Solo Practice</span>
+
+            </button>
+
+            <button id="rankBtn" class="menu-btn ranked">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <span>Ranked Match</span>
+
+            </button>
+
+            <button id="customBtn" class="menu-btn">
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>Custom Room</span>
+
+            </button>
+
+            <button id="tournamentBtn" class="menu-btn">
+
+                <i class="fa-solid fa-medal"></i>
+
+                <span>Tournament</span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =============================== -->
+<!-- QUICK MENU -->
+<!-- =============================== -->
+
+<section class="quick-menu">
+
+    <div class="quick-card" id="leaderboardBtn">
+
+        <i class="fa-solid fa-ranking-star"></i>
+
+        <h3>Leaderboard</h3>
+
+        <p>Top Global Players</p>
+
+    </div>
+
+    <div class="quick-card" id="profileBtn">
+
+        <i class="fa-solid fa-user"></i>
+
+        <h3>Profile</h3>
+
+        <p>Your Statistics</p>
+
+    </div>
+
+    <div class="quick-card" id="achievementBtn">
+
+        <i class="fa-solid fa-award"></i>
+
+        <h3>Achievements</h3>
+
+        <p>Unlock Rewards</p>
+
+    </div>
+
+    <div class="quick-card" id="shopBtn">
+
+        <i class="fa-solid fa-store"></i>
+
+        <h3>Shop</h3>
+
+        <p>Avatar & Rank Effects</p>
+
+    </div>
+
+</section>
+
+<!-- =============================== -->
+<!-- PLAYER STATISTICS -->
+<!-- =============================== -->
+
+<section class="player-stats">
+
+    <div class="stat-card">
+
+        <h2 id="totalMatch">
+
+            0
+
+        </h2>
+
+        <span>Total Match</span>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h2 id="totalWin">
+
+            0
+
+        </h2>
+
+        <span>Wins</span>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h2 id="highestWPM">
+
+            0
+
+        </h2>
+
+        <span>Highest WPM</span>
+
+    </div>
+
+    <div class="stat-card">
+
+        <h2 id="accuracyRate">
+
+            100%</h2>
+
+        <span>Accuracy</span>
+
+    </div>
+
+</section>
+
+<!-- =============================== -->
+<!-- NEWS PANEL -->
+<!-- =============================== -->
+
+<section class="news-panel">
+
+    <div class="news-card">
+
+        <h2>
+
+            📢 Latest News
+
+        </h2>
+
+        <div class="news-item">
+
+            🔥 Season 1 Ranked is Live!
+
+        </div>
+
+        <div class="news-item">
+
+            🎁 Daily Login Rewards Available.
+
+        </div>
+
+        <div class="news-item">
+
+            ⚔ Double EXP Weekend Coming Soon.
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =============================== -->
+<!-- GAME MODES -->
+<!-- =============================== -->
+
+<section class="mode-list">
+
+    <div class="mode-card">
+
+        <h3>Practice</h3>
+
+        <p>Unlimited time to improve your typing.</p>
+
+    </div>
+
+    <div class="mode-card">
+
+        <h3>Classic</h3>
+
+        <p>Type random words before time runs out.</p>
+
+    </div>
+
+    <div class="mode-card">
+
+        <h3>Ranked</h3>
+
+        <p>Compete with players around the world.</p>
+
+    </div>
+
+    <div class="mode-card">
+
+        <h3>Hardcore</h3>
+
+        <p>One mistake ends the game.</p>
+
+    </div>
+
+</section>
+
+<!-- =============================== -->
+<!-- FOOTER MENU -->
+<!-- =============================== -->
+
+<footer class="menu-footer">
+
+    <button class="footer-btn" id="settingMenuBtn">
+
+        <i class="fa-solid fa-gear"></i>
+
+        Settings
+
+    </button>
+
+    <button class="footer-btn" id="helpBtn">
+
+        <i class="fa-solid fa-circle-question"></i>
+
+        Help
+
+    </button>
+
+    <button class="footer-btn" id="aboutBtn">
+
+        <i class="fa-solid fa-circle-info"></i>
+
+        About
+
+    </button>
+
+    <button class="footer-btn danger" id="exitBtn">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        Exit
+
+    </button>
+
+</footer>
+
+<!-- =============================== -->
+<!-- QUEUE SCREEN -->
+<!-- (Bahagian 3 akan bermula dari sini) -->
+<!-- =============================== -->
+<!-- ========================================= -->
+<!-- MATCHMAKING QUEUE SCREEN -->
+<!-- ========================================= -->
+
+<section class="screen queue-screen hidden" id="queueScreen">
+
+    <div class="queue-container">
+
+        <div class="queue-card">
+
+            <div class="queue-icon">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </div>
+
+            <h1>Finding Opponent...</h1>
+
+            <p>
+
+                Searching for players with similar MMR.
+
+            </p>
+
+            <!-- Animated Loader -->
+
+            <div class="loader-ring">
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </div>
+
+            <!-- Queue Timer -->
+
+            <div class="queue-timer">
+
+                <h2>
+
+                    Queue Time
+
+                </h2>
+
+                <span id="queueTime">
+
+                    00:00
+
+                </span>
+
+            </div>
+
+            <!-- Estimated Time -->
+
+            <div class="estimate-box">
+
+                <h3>
+
+                    Estimated Wait
+
+                </h3>
+
+                <p>
+
+                    10 - 30 Seconds
+
+                </p>
+
+            </div>
+
+            <!-- Searching Animation -->
+
+            <div class="search-animation">
+
+                <div class="search-dot"></div>
+
+                <div class="search-dot"></div>
+
+                <div class="search-dot"></div>
+
+            </div>
+
+            <!-- Cancel -->
+
+            <button
+                class="cancel-btn"
+                id="cancelMatchBtn">
+
+                Cancel Matchmaking
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- MATCH STATUS -->
+<!-- ========================================= -->
+
+<section
+class="queue-info hidden"
+id="queueInfo">
+
+    <div class="info-card">
+
+        <h2>
+
+            Match Status
+
+        </h2>
+
+        <p id="matchStatus">
+
+            Waiting for available opponent...
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- SERVER STATUS -->
+<!-- ========================================= -->
+
+<section
+class="server-status hidden">
+
+    <div class="server-card">
+
+        <div>
+
+            🌐 Server
+
+            <span id="serverName">
+
+                Asia
+
+            </span>
+
+        </div>
+
+        <div>
+
+            📶 Ping
+
+            <span id="pingValue">
+
+                25 ms
+
+            </span>
+
+        </div>
+
+        <div>
+
+            👥 Players
+
+            <span id="queuePlayers">
+
+                0
+
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- MATCHMAKING TIPS -->
+<!-- ========================================= -->
+
+<section
+class="tips-section hidden">
+
+    <div class="tips-card">
+
+        <h2>
+
+            💡 Tips
+
+        </h2>
+
+        <ul>
+
+            <li>
+
+                Keep your fingers on the home row.
+
+            </li>
+
+            <li>
+
+                Accuracy gives more points than speed.
+
+            </li>
+
+            <li>
+
+                Build combo to earn bonus score.
+
+            </li>
+
+            <li>
+
+                Stay focused during long words.
+
+            </li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- FOUND OPPONENT POPUP -->
+<!-- ========================================= -->
+
+<div
+class="match-found hidden"
+id="matchFound">
+
+    <div class="match-card">
+
+        <i class="fa-solid fa-circle-check"></i>
+
+        <h1>
+
+            Opponent Found!
+
+        </h1>
+
+        <p>
+
+            Preparing battle...
+
+        </p>
+
+    </div>
 
 </div>
+
+<!-- ========================================= -->
+<!-- READY CHECK -->
+<!-- ========================================= -->
+
+<div
+class="ready-check hidden"
+id="readyCheck">
+
+    <div class="ready-card">
+
+        <h2>
+
+            Ready?
+
+        </h2>
+
+        <p>
+
+            Match starts when both players are ready.
+
+        </p>
+
+        <button
+            id="readyBtn"
+            class="ready-btn">
+
+            READY
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- Bahagian 4 bermula di sini -->
+<!-- VS SCREEN -->
+<!-- ========================================= -->
+<!-- ========================================= -->
+<!-- VS SCREEN -->
+<!-- ========================================= -->
+
+<section class="screen vs-screen hidden" id="vsScreen">
+
+    <div class="vs-background"></div>
+
+    <div class="vs-container">
+
+        <!-- ================= PLAYER ================= -->
+
+        <div class="vs-player left">
+
+            <div class="avatar-frame">
+
+                <img
+                    src="assets/avatar/default.png"
+                    id="playerAvatarVS"
+                    alt="Player">
+
+            </div>
+
+            <h2 id="playerNameVS">
+
+                YOU
+
+            </h2>
+
+            <div class="rank-badge">
+
+                <img
+                    src="assets/badge/bronze.png"
+                    id="playerRankBadge"
+                    alt="Rank">
+
+            </div>
+
+            <div class="player-info">
+
+                <p>
+
+                    Rank :
+                    <span id="playerRankVS">
+
+                        Bronze I
+
+                    </span>
+
+                </p>
+
+                <p>
+
+                    MMR :
+                    <span id="playerMMRVS">
+
+                        1200
+
+                    </span>
+
+                </p>
+
+                <p>
+
+                    Win Rate :
+                    <span id="playerWinRate">
+
+                        55%
+
+                    </span>
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- ================= VS ================= -->
+
+        <div class="vs-middle">
+
+            <div class="vs-circle">
+
+                VS
+
+            </div>
+
+        </div>
+
+        <!-- ================= OPPONENT ================= -->
+
+        <div class="vs-player right">
+
+            <div class="avatar-frame">
+
+                <img
+                    src="assets/avatar/default-opponent.png"
+                    id="enemyAvatar"
+                    alt="Opponent">
+
+            </div>
+
+            <h2 id="enemyName">
+
+                Searching...
+
+            </h2>
+
+            <div class="rank-badge">
+
+                <img
+                    src="assets/badge/silver.png"
+                    id="enemyRankBadge"
+                    alt="Rank">
+
+            </div>
+
+            <div class="player-info">
+
+                <p>
+
+                    Rank :
+                    <span id="enemyRank">
+
+                        Silver II
+
+                    </span>
+
+                </p>
+
+                <p>
+
+                    MMR :
+                    <span id="enemyMMR">
+
+                        1240
+
+                    </span>
+
+                </p>
+
+                <p>
+
+                    Win Rate :
+                    <span id="enemyWinRate">
+
+                        57%
+
+                    </span>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- MATCH INFORMATION -->
+<!-- ========================================= -->
+
+<section
+class="match-info hidden"
+id="matchInfo">
+
+    <div class="match-card">
+
+        <div>
+
+            🌍 Server
+
+            <span id="battleServer">
+
+                Asia
+
+            </span>
+
+        </div>
+
+        <div>
+
+            📶 Ping
+
+            <span id="battlePing">
+
+                20 ms
+
+            </span>
+
+        </div>
+
+        <div>
+
+            🎮 Mode
+
+            <span id="battleMode">
+
+                Ranked
+
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- COUNTDOWN -->
+<!-- ========================================= -->
+
+<section
+class="countdown-screen hidden"
+id="countdownScreen">
+
+    <div class="countdown-number"
+         id="countdownNumber">
+
+        3
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- GO SCREEN -->
+<!-- ========================================= -->
+
+<section
+class="go-screen hidden"
+id="goScreen">
+
+    <div class="go-text">
+
+        GO!
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- MATCH OBJECTIVES -->
+<!-- ========================================= -->
+
+<section
+class="objective-screen hidden"
+id="objectiveScreen">
+
+    <div class="objective-card">
+
+        <h2>
+
+            Match Objective
+
+        </h2>
+
+        <ul>
+
+            <li>⌨ Type words as quickly as possible.</li>
+
+            <li>🎯 Maintain high accuracy.</li>
+
+            <li>🔥 Build combo for bonus score.</li>
+
+            <li>🏆 Defeat your opponent before time ends.</li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- BATTLE READY ANIMATION -->
+<!-- ========================================= -->
+
+<div
+class="battle-ready hidden"
+id="battleReady">
+
+    <div class="battle-ready-box">
+
+        <h1>
+
+            BATTLE STARTING
+
+        </h1>
+
+    </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- GAME SCREEN -->
+<!-- Bahagian 5 akan bermula di sini -->
+<!-- ========================================= -->
+<!-- ========================================= -->
+<!-- GAME SCREEN -->
+<!-- ========================================= -->
+
+<section class="screen game-screen hidden" id="gameScreen">
+
+    <!-- ================= HUD ================= -->
+
+    <header class="game-hud">
+
+        <div class="hud-left">
+
+            <div class="hud-box">
+                ⏱
+                <span id="timer">60</span>
+            </div>
+
+            <div class="hud-box">
+                🏆
+                <span id="score">0</span>
+            </div>
+
+            <div class="hud-box">
+                🔥
+                <span id="combo">0</span>
+            </div>
+
+        </div>
+
+        <div class="hud-center">
+
+            <div class="progress-wrapper">
+
+                <div class="progress-track">
+
+                    <div
+                        class="progress-fill"
+                        id="playerProgress">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="hud-right">
+
+            <div class="hud-box">
+
+                ⚡
+
+                <span id="wpm">
+
+                    0
+
+                </span>
+
+                WPM
+
+            </div>
+
+            <div class="hud-box">
+
+                🎯
+
+                <span id="accuracy">
+
+                    100%
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- ================= PLAYER HP ================= -->
+
+    <section class="health-section">
+
+        <div class="hp-container">
+
+            <label>You</label>
+
+            <div class="hp-bar">
+
+                <div
+                    id="playerHP"
+                    class="hp-fill">
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="hp-container">
+
+            <label>Opponent</label>
+
+            <div class="hp-bar">
+
+                <div
+                    id="enemyHP"
+                    class="hp-fill enemy">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= CURRENT WORD ================= -->
+
+    <section class="typing-area">
+
+        <div class="word-box">
+
+            <h1
+                id="currentWord">
+
+                Loading...
+
+            </h1>
+
+        </div>
+
+        <input
+
+            type="text"
+
+            id="typingInput"
+
+            autocomplete="off"
+
+            spellcheck="false"
+
+            placeholder="Start typing here..."
+
+        >
+
+    </section>
+
+    <!-- ================= LIVE STATS ================= -->
+
+    <section class="live-stats">
+
+        <div class="live-card">
+
+            Correct
+
+            <h2 id="correctWord">
+
+                0
+
+            </h2>
+
+        </div>
+
+        <div class="live-card">
+
+            Wrong
+
+            <h2 id="wrongWord">
+
+                0
+
+            </h2>
+
+        </div>
+
+        <div class="live-card">
+
+            Characters
+
+            <h2 id="charTyped">
+
+                0
+
+            </h2>
+
+        </div>
+
+        <div class="live-card">
+
+            Best Combo
+
+            <h2 id="bestCombo">
+
+                0
+
+            </h2>
+
+        </div>
+
+    </section>
+
+    <!-- ================= MINI OPPONENT ================= -->
+
+    <section class="enemy-status">
+
+        <div class="enemy-card">
+
+            <img
+
+                src="assets/avatar/default-opponent.png"
+
+                id="enemyMiniAvatar"
+
+                alt="Opponent">
+
+            <div>
+
+                <h3 id="enemyMiniName">
+
+                    Opponent
+
+                </h3>
+
+                <p>
+
+                    Progress
+
+                </p>
+
+            </div>
+
+            <div class="enemy-progress">
+
+                <div
+                    id="enemyProgressBar">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ================= POWER UPS ================= -->
+
+    <section class="powerups">
+
+        <button class="power-btn">
+
+            ⚡ Boost
+
+        </button>
+
+        <button class="power-btn">
+
+            🛡 Shield
+
+        </button>
+
+        <button class="power-btn">
+
+            ❄ Freeze
+
+        </button>
+
+    </section>
+
+    <!-- ================= QUICK CHAT ================= -->
+
+    <section class="emoji-chat">
+
+        <button>😀</button>
+
+        <button>😎</button>
+
+        <button>🔥</button>
+
+        <button>😱</button>
+
+        <button>👍</button>
+
+        <button>😂</button>
+
+    </section>
+
+    <!-- ================= PAUSE ================= -->
+
+    <section
+
+        class="pause-menu hidden"
+
+        id="pauseMenu">
+
+        <div class="pause-card">
+
+            <h1>
+
+                Game Paused
+
+            </h1>
+
+            <button id="resumeBtn">
+
+                Resume
+
+            </button>
+
+            <button id="restartBtn">
+
+                Restart
+
+            </button>
+
+            <button id="leaveBtn">
+
+                Leave Match
+
+            </button>
+
+        </div>
+
+    </section>
+
+</section>
+
+<!-- ========================================= -->
+<!-- RESULT SCREEN -->
+<!-- Bahagian 6 bermula di sini -->
+<!-- ========================================= -->
+<!-- ========================================= -->
+<!-- RESULT SCREEN -->
+<!-- ========================================= -->
+
+<section class="screen result-screen hidden" id="resultScreen">
+
+    <div class="result-container">
+
+        <!-- RESULT HEADER -->
+        <div class="result-header">
+
+            <h1 id="resultTitle">
+
+                Victory!
+
+            </h1>
+
+            <p id="resultSubtitle">
+
+                Great performance
+
+            </p>
+
+        </div>
+
+        <!-- PLAYER RESULT CARD -->
+        <div class="result-cards">
+
+            <div class="result-card player">
+
+                <img
+                    src="assets/avatar/default.png"
+                    id="resultPlayerAvatar">
+
+                <h2 id="resultPlayerName">
+
+                    YOU
+
+                </h2>
+
+                <p id="resultPlayerRank">
+
+                    Bronze I
+
+                </p>
+
+                <div class="result-stats">
+
+                    <div>
+                        Score
+                        <span id="finalScore">0</span>
+                    </div>
+
+                    <div>
+                        WPM
+                        <span id="finalWPM">0</span>
+                    </div>
+
+                    <div>
+                        Accuracy
+                        <span id="finalAccuracy">100%</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- VS TEXT -->
+            <div class="result-vs">
+
+                VS
+
+            </div>
+
+            <!-- ENEMY RESULT CARD -->
+            <div class="result-card enemy">
+
+                <img
+                    src="assets/avatar/default-opponent.png"
+                    id="resultEnemyAvatar">
+
+                <h2 id="resultEnemyName">
+
+                    Opponent
+
+                </h2>
+
+                <p id="resultEnemyRank">
+
+                    Silver II
+
+                </p>
+
+                <div class="result-stats">
+
+                    <div>
+                        Score
+                        <span id="enemyFinalScore">0</span>
+                    </div>
+
+                    <div>
+                        WPM
+                        <span id="enemyFinalWPM">0</span>
+                    </div>
+
+                    <div>
+                        Accuracy
+                        <span id="enemyFinalAccuracy">100%</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- MATCH SUMMARY -->
+        <div class="match-summary">
+
+            <div class="summary-box">
+
+                <h3>MMR Change</h3>
+
+                <p id="mmrChange">
+
+                    +25
+
+                </p>
+
+            </div>
+
+            <div class="summary-box">
+
+                <h3>XP Earned</h3>
+
+                <p id="xpEarned">
+
+                    +150
+
+                </p>
+
+            </div>
+
+            <div class="summary-box">
+
+                <h3>Best Combo</h3>
+
+                <p id="bestComboResult">
+
+                    12x
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- RANK PROMOTION -->
+        <div class="rank-promotion hidden" id="rankPromotion">
+
+            <h2>
+
+                Rank Up!
+
+            </h2>
+
+            <img
+                src="assets/badge/silver.png"
+                id="newRankBadge">
+
+            <p id="newRankText">
+
+                Silver I
+
+            </p>
+
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="result-buttons">
+
+            <button id="playAgainBtn">
+
+                Play Again
+
+            </button>
+
+            <button id="backMenuBtn">
+
+                Back to Menu
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- LEADERBOARD SCREEN -->
+<!-- ========================================= -->
+
+<section class="screen leaderboard-screen hidden" id="leaderboardScreen">
+
+    <div class="leaderboard-container">
+
+        <h1>🏆 Global Leaderboard</h1>
+
+        <div class="leaderboard-list" id="leaderboardList">
+
+            <!-- Player items will be injected by JS -->
+
+        </div>
+
+        <button id="closeLeaderboard">
+
+            Close
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- PROFILE SCREEN -->
+<!-- ========================================= -->
+
+<section class="screen profile-screen hidden" id="profileScreen">
+
+    <div class="profile-container">
+
+        <img
+            src="assets/avatar/default.png"
+            id="profileAvatar">
+
+        <h2 id="profileName">
+
+            Player
+
+        </h2>
+
+        <p id="profileRank">
+
+            Bronze I
+
+        </p>
+
+        <div class="profile-stats">
+
+            <div>
+                Matches
+                <span id="profileMatches">0</span>
+            </div>
+
+            <div>
+                Wins
+                <span id="profileWins">0</span>
+            </div>
+
+            <div>
+                Best WPM
+                <span id="profileBestWPM">0</span>
+            </div>
+
+            <div>
+                Accuracy
+                <span id="profileAccuracy">100%</span>
+            </div>
+
+        </div>
+
+        <button id="closeProfile">
+
+            Close
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- SETTINGS SCREEN -->
+<!-- ========================================= -->
+
+<section class="screen settings-screen hidden" id="settingsScreen">
+
+    <div class="settings-container">
+
+        <h1>⚙ Settings</h1>
+
+        <div class="setting-item">
+
+            <label>Sound</label>
+
+            <input type="checkbox" id="soundToggle">
+
+        </div>
+
+        <div class="setting-item">
+
+            <label>Music</label>
+
+            <input type="checkbox" id="musicToggle">
+
+        </div>
+
+        <div class="setting-item">
+
+            <label>Dark Mode</label>
+
+            <input type="checkbox" id="themeToggle">
+
+        </div>
+
+        <button id="closeSettings">
+
+            Close
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- NOTIFICATION TOAST -->
+<!-- ========================================= -->
+
+<div class="toast" id="toast">
+
+    Message
+
+</div>
+
+<!-- ========================================= -->
+<!-- FOOTER END -->
+<!-- Bahagian 7 akan sambung penutup HTML -->
+<!-- ========================================= -->
+<!-- ========================================= -->
+<!-- SHOP SCREEN -->
+<!-- ========================================= -->
+
+<section class="screen shop-screen hidden" id="shopScreen">
+
+    <div class="shop-container">
+
+        <h1>🛒 Shop</h1>
+
+        <p>Customize your profile and effects</p>
+
+        <div class="shop-grid">
+
+            <div class="shop-item">
+
+                <img src="assets/avatar/default.png">
+
+                <h3>Basic Avatar</h3>
+
+                <button>Equip</button>
+
+            </div>
+
+            <div class="shop-item">
+
+                <img src="assets/badge/silver.png">
+
+                <h3>Silver Badge</h3>
+
+                <button>Buy</button>
+
+            </div>
+
+            <div class="shop-item">
+
+                <img src="assets/badge/gold.png">
+
+                <h3>Gold Effect</h3>
+
+                <button>Buy</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- ACHIEVEMENTS SCREEN -->
+<!-- ========================================= -->
+
+<section class="screen achievement-screen hidden" id="achievementScreen">
+
+    <div class="achievement-container">
+
+        <h1>🎖 Achievements</h1>
+
+        <div class="achievement-list">
+
+            <div class="achievement-item">
+
+                <h3>First Win</h3>
+
+                <p>Win your first match</p>
+
+            </div>
+
+            <div class="achievement-item">
+
+                <h3>Speed Demon</h3>
+
+                <p>Reach 100 WPM</p>
+
+            </div>
+
+            <div class="achievement-item">
+
+                <h3>Unstoppable</h3>
+
+                <p>5 Win Streak</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- HELP / TUTORIAL -->
+<!-- ========================================= -->
+
+<section class="screen help-screen hidden" id="helpScreen">
+
+    <div class="help-container">
+
+        <h1>📘 How to Play</h1>
+
+        <ul>
+
+            <li>Type the words shown on screen</li>
+
+            <li>Maintain high accuracy</li>
+
+            <li>Build combo for bonus points</li>
+
+            <li>Win against your opponent</li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- EXIT CONFIRM MODAL -->
+<!-- ========================================= -->
+
+<div class="modal hidden" id="exitModal">
+
+    <div class="modal-box">
+
+        <h2>Exit Game?</h2>
+
+        <p>Are you sure you want to leave?</p>
+
+        <button id="confirmExit">Yes</button>
+
+        <button id="cancelExit">No</button>
+
+    </div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- LOADING OVERLAY -->
+<!-- ========================================= -->
+
+<div class="loading-overlay hidden" id="loadingOverlay">
+
+    <div class="spinner"></div>
+
+    <p>Loading...</p>
+
+</div>
+
+<!-- ========================================= -->
+<!-- FLOATING NOTIFICATION -->
+<!-- ========================================= -->
+
+<div class="notification hidden" id="notification">
+
+    <p id="notificationText">Welcome!</p>
+
+</div>
+
+<!-- ========================================= -->
+<!-- FOOTER NAV (Mobile Friendly) -->
+<!-- ========================================= -->
+
+<footer class="mobile-footer">
+
+    <button class="nav-btn" id="navHome">🏠</button>
+
+    <button class="nav-btn" id="navRank">⚔</button>
+
+    <button class="nav-btn" id="navProfile">👤</button>
+
+    <button class="nav-btn" id="navShop">🛒</button>
+
+</footer>
+
+<!-- ========================================= -->
+<!-- FLOATING ACTION BUTTON -->
+<!-- ========================================= -->
+
+<div class="fab" id="fabBtn">
+
+    ⚙
+
+</div>
+
+<!-- ========================================= -->
+<!-- SCRIPT FILES -->
+<!-- ========================================= -->
+
+<script src="firebase-config.js"></script>
 
 <script src="script.js"></script>
+
 </body>
 </html>
