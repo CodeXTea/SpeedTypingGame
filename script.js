@@ -277,6 +277,16 @@ document.addEventListener("DOMContentLoaded", () => {
 /* ========================================= */
 /* CORRECT WORD */
 /* ========================================= */
+/* ========================================= */
+/* INIT GAME */
+/* ========================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    loadPlayerProfile();
+    loadLeaderboard();
+
+});
 
 function correctWord() {
 
@@ -424,7 +434,20 @@ function endGame() {
 
     showResultScreen();
 }
+/* ========================================= */
+/* AFTER MATCH SAVE */
+/* ========================================= */
 
+function updateAfterMatch(win) {
+
+    if (win) {
+        gameState.wins = (gameState.wins || 0) + 1;
+    } else {
+        gameState.losses = (gameState.losses || 0) + 1;
+    }
+
+    savePlayerProfile();
+}
 /* ========================================= */
 /* SHOW RESULT SCREEN */
 /* ========================================= */
@@ -572,3 +595,126 @@ setInterval(() => {
 /* ========================================= */
 
 console.log("Typing Battle Loaded Successfully ⚡");
+/* ========================================= */
+/* SAVE / UPDATE PLAYER PROFILE */
+/* ========================================= */
+
+function savePlayerProfile() {
+
+    let playerId = localStorage.getItem("playerId");
+
+    if (!playerId) {
+        playerId = "player_" + Math.floor(Math.random() * 999999);
+        localStorage.setItem("playerId", playerId);
+    }
+
+    const playerData = {
+        name: gameState.playerName,
+        mmr: gameState.mmr,
+        level: gameState.level,
+        xp: gameState.xp,
+        wins: gameState.wins || 0,
+        losses: gameState.losses || 0,
+        wpm: gameState.wpm,
+        accuracy: gameState.accuracy
+    };
+
+    db.ref("players/" + playerId).set(playerData);
+    db.ref("leaderboard/" + playerId).set({
+        name: gameState.playerName,
+        mmr: gameState.mmr
+    });
+}
+/* ========================================= */
+/* LOAD PLAYER PROFILE */
+/* ========================================= */
+
+function loadPlayerProfile() {
+
+    let playerId = localStorage.getItem("playerId");
+
+    if (!playerId) return;
+
+    db.ref("players/" + playerId).once("value", (snap) => {
+
+        if (snap.exists()) {
+
+            const data = snap.val();
+
+            gameState = {
+                ...gameState,
+                ...data
+            };
+
+            updateProfileUI();
+        }
+    });
+}
+/* ========================================= */
+/* UPDATE UI */
+/* ========================================= */
+
+function updateProfileUI() {
+
+    document.getElementById("playerName") &&
+        (document.getElementById("playerName").innerText = gameState.playerName);
+
+    document.getElementById("playerRank") &&
+        (document.getElementById("playerRank").innerText = getRank(gameState.mmr));
+
+    document.getElementById("playerLevel") &&
+        (document.getElementById("playerLevel").innerText = gameState.level);
+
+    document.getElementById("mmr") &&
+        (document.getElementById("mmr").innerText = gameState.mmr);
+}
+/* ========================================= */
+/* RANK SYSTEM */
+/* ========================================= */
+
+function getRank(mmr) {
+
+    if (mmr >= 2400) return "Master";
+    if (mmr >= 2000) return "Diamond";
+    if (mmr >= 1600) return "Platinum";
+    if (mmr >= 1200) return "Gold";
+    if (mmr >= 900) return "Silver";
+    return "Bronze";
+}
+/* ========================================= */
+/* LOAD LEADERBOARD */
+/* ========================================= */
+
+function loadLeaderboard() {
+
+    const list = document.getElementById("leaderboardList");
+
+    db.ref("leaderboard")
+        .orderByChild("mmr")
+        .limitToLast(10)
+        .on("value", (snap) => {
+
+            let data = [];
+
+            snap.forEach(child => {
+                data.push(child.val());
+            });
+
+            data.reverse();
+
+            if (list) {
+
+                list.innerHTML = "";
+
+                data.forEach((p, i) => {
+
+                    list.innerHTML += `
+                        <div class="leaderboard-item">
+                            <span>#${i + 1} ${p.name}</span>
+                            <span>${p.mmr} MMR</span>
+                        </div>
+                    `;
+                });
+            }
+        });
+}
