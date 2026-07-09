@@ -475,24 +475,24 @@
     </footer>
 
     <script>
-        // Gambar default (.jpg) yang disetkan secara terus mengikut kategori & produk untuk hasil katalog yang realistik
+        // Folder fallback imej laluan relatif jika pengguna menambah produk baharu secara manual
         const backupImages = {
-            "aircond": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-            "tilam": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-            "penapis-air": "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-            "penapis-udara": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-            "washer-dryer": "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
-            "massage-chair": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+            "aircond": "aircond-default.jpg",
+            "tilam": "tilam-default.jpg",
+            "penapis-air": "water-default.jpg",
+            "penapis-udara": "air-default.jpg",
+            "washer-dryer": "washer-default.jpg",
+            "massage-chair": "massage-default.jpg"
         };
 
-        // KESELURUHAN DATA ASAL PROSES DARI MANUAL COWAY
+        // KESELURUHAN DATA ASAL PROSES DARI MANUAL COWAY (MENGGUNAKAN FORMAT nama_fail.jpg)
         const dataAsalProduk = [
             {
                 id: 1,
                 kategori: "aircond",
                 nama: "F-SERIES Aircond",
                 tag: "2 in 1 Aircond",
-                image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=500&q=80.jpg",
+                image: "f-series.jpg",
                 specs: [
                     "2 in 1 aircond + air filter (Hepa Filter)",
                     "Jimat elektrik - 5 star energy saving!",
@@ -515,7 +515,7 @@
                 kategori: "aircond",
                 nama: "P-Series Aircond",
                 tag: "Premium Aircond",
-                image: "https://images.unsplash.com/photo-1621905252485-39452329241c?w=500&q=80.jpg",
+                image: "p-series.jpg",
                 specs: [
                     "2 in 1 aircond + air filter (Hepa Filter)",
                     "Jimat elektrik - 5 star energy saving!",
@@ -540,7 +540,7 @@
                 kategori: "tilam",
                 nama: "Primelite Queen SET (With Service)",
                 tag: "Set Katil & Tilam",
-                image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500&q=80.jpg",
+                image: "primelite-queen-set-service.jpg",
                 specs: [
                     "Siri Prime Lite Berkualiti Coway",
                     "Ada 5 zon pocket spring",
@@ -559,7 +559,7 @@
                 kategori: "tilam",
                 nama: "Primelite Queen SET (Without Service)",
                 tag: "Set Katil & Tilam",
-                image: "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=500&q=80.jpg",
+                image: "primelite-queen-set-noservice.jpg",
                 specs: [
                     "Siri Prime Lite (Tanpa Servis Berkala)",
                     "Ada 5 zon pocket spring",
@@ -576,7 +576,7 @@
                 kategori: "tilam",
                 nama: "Primelite Queen Mattress ONLY (With Service)",
                 tag: "Tilam Sahaja",
-                image: "https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=500&q=80.jpg",
+                image: "primelite-queen-mattress-service.jpg",
                 specs: [
                     "Tilam Sahaja (Termasuk Servis Berkala)",
                     "Ada 5 zon pocket spring",
@@ -593,7 +593,7 @@
                 kategori: "tilam",
                 nama: "Primelite Queen Mattress ONLY (Without Service)",
                 tag: "Tilam Sahaja",
-                image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=80.jpg",
+                image: "primelite-queen-mattress-noservice.jpg",
                 specs: [
                     "Tilam Sahaja (Tanpa Servis Berkala)",
                     "5 zon pocket spring, sesuai untuk bajet"
@@ -609,7 +609,7 @@
                 kategori: "tilam",
                 nama: "Prime II Series KING (Without Service)",
                 tag: "Siri Mewah King",
-                image: "https://images.unsplash.com/photo-1505692952047-1a78307ca8f2?w=500&q=80.jpg",
+                image: "prime2-king-noservice.jpg",
                 specs: [
                     "Ada 7 zon pocket spring + lapisan latex",
                     "Rasa lebih empuk & premium",
@@ -630,7 +630,7 @@
                 kategori: "tilam",
                 nama: "Prime II Series KING (With Service)",
                 tag: "Mewah + Servis",
-                image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=500&q=80.jpg",
+                image: "prime2-king-service.jpg",
                 specs: [
                     "7 zon pocket spring + lapisan latex",
                     "Ketebalan mewah 13.5 inci dengan Coway Service"
@@ -648,7 +648,7 @@
                 kategori: "tilam",
                 nama: "Prime II Series QUEEN (Without Service)",
                 tag: "Siri Mewah Queen",
-                image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500&q=80.jpg",
+                image: "prime2-queen-noservice.jpg",
                 specs: [
                     "7 zon pocket spring + lapisan latex",
                     "Rasa lebih empuk & premium",
@@ -667,7 +667,7 @@
                 kategori: "tilam",
                 nama: "Prime II Series QUEEN (With Service)",
                 tag: "Mewah + Servis",
-                image: "https://images.unsplash.com/photo-1505693395321-883724634266?w=500&q=80.jpg",
+                image: "prime2-queen-service.jpg",
                 specs: [
                     "7 zon pocket spring + lapisan latex mewah",
                     "Ketebalan 13.5 inci dengan jaminan servis berkala"
@@ -685,7 +685,7 @@
                 kategori: "penapis-air",
                 nama: "VILLAEM III",
                 tag: "PALING LARIS",
-                image: "Villeam_3.jpg",
+                image: "Villaem_3.jpg",
                 specs: [
                     "3 Tetapan Suhu Air (Sejuk: 2.6L | Panas: 2.7L | Biasa: 6.1L)",
                     "Suhu Panas Fleksibel: (95/85/70/60/50/40) Celcius",
@@ -708,7 +708,7 @@
                 kategori: "penapis-air",
                 nama: "NEON",
                 tag: "Model Terbaru",
-                image: "img/Neon.jpg",
+                image: "neon.jpg",
                 specs: [
                     "3 Tetapan Suhu Air (Sejuk: 1.5L | Panas: 1.0L | Biasa: Tiada Had)",
                     "Design: Modern digital button dengan Safety Child Lock",
@@ -750,7 +750,7 @@
                 kategori: "washer-dryer",
                 nama: "Washer Dryer 2 In 1",
                 tag: "Dwi Fungsi",
-                image: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=500&q=80.jpg",
+                image: "washer-dryer.jpg",
                 specs: [
                     "Kapasiti hebat: 10kg cuci / 6kg kering",
                     "Inverter Direct Drive – jimat elektrik, senyap",
@@ -772,7 +772,7 @@
                 kategori: "massage-chair",
                 nama: "MASSAGE CHAIR (Siri Standard)",
                 tag: "Urutan Klasik",
-                image: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=500&q=80.jpg",
+                image: "massage-chair.jpg",
                 specs: [
                     "Sistem Urutan Penuh Badan",
                     "Teknologi Pintar Bersepadu",
@@ -787,7 +787,7 @@
                 kategori: "massage-chair",
                 nama: "SENNO (Siri Urutan Pintar)",
                 tag: "Teknologi 4D",
-                image: "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=500&q=80.jpg",
+                image: "senno.jpg",
                 specs: [
                     "Urutan 4D Pintar Menyeluruh",
                     "Sistem Kawalan Mudah Guna",
@@ -802,7 +802,7 @@
                 kategori: "massage-chair",
                 nama: "MINE (Siri Kompak)",
                 tag: "Kompak Elegan",
-                image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&q=80.jpg",
+                image: "mine.jpg",
                 specs: [
                     "Rekaan Kompak & Sangat Elegan",
                     "Fokus Urutan Khusus Bahu & Pinggang",
@@ -817,7 +817,7 @@
                 kategori: "massage-chair",
                 nama: "SENNO PLUS (Siri Premium)",
                 tag: "Deep Tissue",
-                image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500&q=80.jpg",
+                image: "sennoplus.jpg",
                 specs: [
                     "Urutan Advanced 4D & Deep Tissue",
                     "Rel Panjang Struktur SL-Track",
@@ -832,7 +832,7 @@
                 kategori: "penapis-udara",
                 nama: "Coway SUITE",
                 tag: "Rumah Sederhana",
-                image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&q=80.jpg",
+                image: "suite.jpg",
                 specs: [
                     "Sesuai untuk Ruang tamu / rumah sederhana",
                     "HyperVortex™ Technology – aliran udara stabil",
@@ -854,7 +854,7 @@
                 kategori: "penapis-udara",
                 nama: "Model Storm 2",
                 tag: "2 in 1 Hybrid",
-                image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=500&q=80.jpg",
+                image: "storm2.jpg",
                 specs: [
                     "Dual-Fungsi: 2in1, penapis udara + kipas aliran",
                     "Mempunyai 4 lapisan filter bersama Double HEPA filter",
@@ -868,7 +868,7 @@
                     { pelan: "7 Tahun Pakej (Self Service)", harga: "RM55 / bulan" },
                     { pelan: "5 Tahun Pakej (Servis 2_bulan)", harga: "RM90 / bulan" },
                     { pelan: "5 Tahun Pakej (Servis 4_bulan)", harga: "RM80 / bulan" },
-                    { pelan: "5 Tahun Pakej (Self Service)", harga: "RM75 / bulan" }
+                    { pelan: "5 Tahun Pakej (Self Service)", status: "Active", harga: "RM75 / bulan" }
                 ],
                 promo: "Anniversary: RM20 / bulan (Bulan-bulan terawal mengikut tempoh kontrak)"
             },
@@ -877,7 +877,7 @@
                 kategori: "penapis-udara",
                 nama: "Coway ATRIUM",
                 tag: "Rumah Besar / Luas",
-                image: "https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=500&q=80.jpg",
+                image: "atrium.jpg",
                 specs: [
                     "Sesuai untuk Rumah besar / landed / ruang luas",
                     "Quad Inlet + Dual Motors (Kuasa Padu)",
@@ -899,7 +899,7 @@
                 kategori: "penapis-udara",
                 nama: "Coway STUDIO",
                 tag: "Ruang Kecil / Bilik",
-                image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500&q=80.jpg",
+                image: "studio.jpg",
                 specs: [
                     "Sesuai untuk Rumah kecil / bilik / apartment",
                     "HyperVortex™ Technology – sedutan kuat tapi senyap",
@@ -918,7 +918,6 @@
             }
         ];
 
-        // Memuatkan data dari LocalStorage, jika tiada ia akan dimulakan dengan dataAsalProduk di atas
         let dataProduk = [];
         try {
             const localData = localStorage.getItem('coway_products_db');
@@ -945,14 +944,13 @@
 
         let kategoriSemasa = "semua";
 
-        // Simpan data terkini secara auto ke LocalStorage
         function simpanKeLocalStorage() {
             localStorage.setItem('coway_products_db', JSON.stringify(dataProduk));
         }
 
         function resetKeAsal() {
             if (confirm("Adakah anda pasti mahu memadam semua perubahan dan mengembalikan ke senarai asal katalog?")) {
-                dataProduk = JSON.parse(JSON.stringify(dataAsalProduk)); // deep copy asal
+                dataProduk = JSON.parse(JSON.stringify(dataAsalProduk));
                 simpanKeLocalStorage();
                 kemaskiniPaparan();
                 tutupDashboard();
@@ -981,7 +979,7 @@
                     </div>
                 `).join('');
 
-                // Jika image tiada langsung pada produk, fallback kepada default kategori backup
+                // MENGHASILKAN TAG <img src="nama fail.jpg"> SECARA RELATIF UNTUK GITHUB PAGES
                 let currentImg = produk.image || backupImages[produk.kategori] || "";
                 let imgHTML = currentImg 
                     ? `<img src="${currentImg}" alt="${produk.nama}">` 
@@ -1061,7 +1059,6 @@
             const promo = document.getElementById("prodPromo").value;
 
             if (editId) {
-                // MOD EDIT: Sunting maklumat lama, kekalkan gambar lama (gambar tidak boleh diubah)
                 const index = dataProduk.findIndex(p => p.id == editId);
                 if (index !== -1) {
                     const gambarLama = dataProduk[index].image;
@@ -1070,14 +1067,13 @@
                         kategori, 
                         nama, 
                         tag, 
-                        image: gambarLama, // Gambar dikekalkan daripada database
+                        image: gambarLama, 
                         specs, 
                         pricing, 
                         promo 
                     };
                 }
             } else {
-                // MOD TAMBAH: Tambah produk baru dengan auto pautan imej kategori
                 const idBaru = dataProduk.length > 0 ? Math.max(...dataProduk.map(p => p.id)) + 1 : 1;
                 const autoImg = backupImages[kategori] || "";
                 dataProduk.push({ 
@@ -1085,14 +1081,14 @@
                     kategori, 
                     nama, 
                     tag, 
-                    image: autoImg, // auto-pautan imej kategori berkualiti tinggi .jpg
+                    image: autoImg, 
                     specs, 
                     pricing, 
                     promo 
                 });
             }
 
-            simpanKeLocalStorage(); // Simpan kekal ke LocalStorage
+            simpanKeLocalStorage();
             tutupDashboard();
             kemaskiniPaparan();
             alert("Maklumat berjaya disimpan secara selamat!");
@@ -1117,7 +1113,7 @@
         function padamProduk(id) {
             if (confirm("Adakah anda pasti mahu memadam produk ini secara kekal dari pangkalan data?")) {
                 dataProduk = dataProduk.filter(p => p.id !== id);
-                simpanKeLocalStorage(); // Kemaskini simpanan LocalStorage
+                simpanKeLocalStorage();
                 kemaskiniPaparan();
             }
         }
