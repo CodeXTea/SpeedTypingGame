@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coway Premium Katalog & Sistem Pengurusan</title>
+    <title>Coway Premium Hub & Content Manager</title>
     <style>
         :root {
             --primary-color: #007bc4;
@@ -30,112 +30,125 @@
             line-height: 1.6;
         }
 
-        /* Header & Hero Section */
         header {
-            background-color: var(--secondary-color);
+            background: linear-gradient(135deg, var(--secondary-color), #1d4473);
             color: white;
             text-align: center;
-            padding: 2.5rem 1rem;
+            padding: 3rem 1rem;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin-bottom: 0.5rem;
             letter-spacing: 1px;
+            font-weight: 800;
         }
 
         header p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             opacity: 0.9;
         }
 
-        /* Navigation Menu */
         nav {
             background-color: white;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            padding: 0.75rem 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            padding: 0.8rem 0;
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 0.5rem;
+            gap: 0.6rem;
         }
 
         .menu-btn {
             background: transparent;
             border: 2px solid var(--primary-color);
             color: var(--primary-color);
-            padding: 0.6rem 1.2rem;
+            padding: 0.6rem 1.4rem;
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 700;
             border-radius: 30px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .menu-btn:hover, .menu-btn.active {
             background-color: var(--primary-color);
             color: white;
-            box-shadow: 0 4px 10px rgba(0, 123, 196, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 123, 196, 0.3);
         }
 
         .menu-btn.admin-btn {
             border-color: var(--accent-color);
             color: var(--accent-color);
         }
+
         .menu-btn.admin-btn:hover, .menu-btn.admin-btn.active {
             background-color: var(--accent-color);
             color: white;
-            box-shadow: 0 4px 10px rgba(255, 87, 34, 0.3);
+            box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
         }
 
-        /* Main Content Container */
         .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+            max-width: 1280px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
         }
 
         .category-title {
-            font-size: 1.8rem;
+            font-size: 2rem;
             color: var(--secondary-color);
-            margin-bottom: 1.5rem;
-            border-left: 5px solid var(--primary-color);
-            padding-left: 0.5rem;
+            margin-bottom: 2rem;
+            border-left: 6px solid var(--primary-color);
+            padding-left: 0.75rem;
             text-transform: uppercase;
+            font-weight: 800;
         }
 
-        /* Admin / Form Section */
+        /* Admin Dashboard Container */
         .admin-section {
             background-color: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-            display: none; /* Tersembunyi pada mulanya */
-            border-top: 4px solid var(--accent-color);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            margin-bottom: 3rem;
+            display: none;
+            border-top: 5px solid var(--accent-color);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
 
         .form-group {
             margin-bottom: 1.2rem;
         }
 
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
         .form-group label {
             display: block;
-            font-weight: 600;
-            margin-bottom: 0.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
             color: var(--secondary-color);
+            font-size: 0.95rem;
         }
 
         .form-control {
             width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ccc;
-            border-radius: 6px;
+            padding: 0.85rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
             font-size: 1rem;
+            transition: border-color 0.2s;
         }
 
         .form-control:focus {
@@ -147,60 +160,84 @@
             background-color: var(--success-color);
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.9rem 2rem;
             font-size: 1rem;
-            font-weight: bold;
-            border-radius: 6px;
+            font-weight: 700;
+            border-radius: 8px;
             cursor: pointer;
             transition: background 0.2s;
         }
+
         .btn-submit:hover { background-color: #27ae60; }
 
         .btn-cancel {
-            background-color: #95a5a6;
+            background-color: #94a3b8;
             color: white;
             border: none;
-            padding: 0.75rem 1.5rem;
+            padding: 0.9rem 2rem;
             font-size: 1rem;
-            border-radius: 6px;
+            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
             margin-left: 0.5rem;
         }
 
-        /* Grid Layout for Products */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
+        /* Reset Button */
+        .reset-container {
+            text-align: right;
+            margin-bottom: 1.5rem;
         }
 
-        /* Product Card Styling */
+        .btn-reset-db {
+            background-color: #e2e8f0;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-reset-db:hover {
+            background-color: #fee2e2;
+            color: var(--danger-color);
+            border-color: #fca5a5;
+        }
+
+        /* Products Display Area */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 2.5rem;
+        }
+
         .product-card {
             background-color: var(--card-bg);
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             border: 1px solid #eef2f5;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.08);
         }
 
-        /* Product Image Placeholder/Actual Styling */
         .product-img-container {
             width: 100%;
-            height: 200px;
-            background-color: #eaeff2;
+            height: 240px;
+            background: linear-gradient(45deg, #e2e8f0, #f1f5f9);
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid #edf2f7;
+            position: relative;
         }
 
         .product-img-container img {
@@ -211,84 +248,87 @@
 
         .no-img-text {
             color: #94a3b8;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-style: italic;
+            font-weight: 600;
         }
 
         .product-header {
-            background: linear-gradient(135deg, var(--secondary-color), #1d4473);
+            background: var(--secondary-color);
             color: white;
-            padding: 1.2rem;
+            padding: 1.5rem;
             position: relative;
         }
 
         .product-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 15px;
+            right: 15px;
             background-color: var(--accent-color);
             color: white;
             font-size: 0.75rem;
-            font-weight: bold;
-            padding: 0.25rem 0.6rem;
-            border-radius: 4px;
+            font-weight: 800;
+            padding: 0.3rem 0.75rem;
+            border-radius: 6px;
             text-transform: uppercase;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .product-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.25rem;
-            padding-right: 60px; /* elak bertindih dengan badge */
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding-right: 80px;
         }
 
         .product-body {
-            padding: 1.2rem;
+            padding: 1.5rem;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
 
-        /* Specs Styling */
         .product-specs {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
             font-size: 0.9rem;
             background-color: #f8fafc;
-            padding: 0.75rem;
-            border-radius: 8px;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid #edf2f7;
         }
 
         .product-specs ul { list-style: none; }
         .product-specs li {
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: flex-start;
+            color: #475569;
         }
+
         .product-specs li::before {
             content: "✓";
             color: var(--primary-color);
-            font-weight: bold;
-            margin-right: 8px;
+            font-weight: 900;
+            margin-right: 10px;
         }
 
-        /* Pricing Section Styling */
         .pricing-section {
-            border-top: 1px dashed #e2e8f0;
-            padding-top: 1rem;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 1.2rem;
         }
 
         .pricing-title {
-            font-size: 0.95rem;
-            font-weight: bold;
+            font-size: 1rem;
+            font-weight: 700;
             color: var(--secondary-color);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
         }
 
         .price-row {
             display: flex;
             justify-content: space-between;
-            font-size: 0.9rem;
-            padding: 0.25rem 0;
+            font-size: 0.92rem;
+            padding: 0.4rem 0;
             border-bottom: 1px solid #f1f5f9;
         }
 
@@ -298,61 +338,66 @@
             background-color: #fff5f5;
             border: 1px solid #feb2b2;
             color: #c53030;
-            padding: 0.5rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            margin-top: 0.75rem;
+            padding: 0.6rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-top: 1rem;
             text-align: center;
+            box-shadow: 0 2px 4px rgba(197, 48, 48, 0.05);
         }
 
-        /* Action Buttons (Edit/Delete) */
         .action-container {
             display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            border-top: 1px solid #edf2f7;
-            padding-top: 0.75rem;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 1rem;
         }
 
         .btn-action {
             flex: 1;
-            padding: 0.5rem;
+            padding: 0.6rem;
             border: none;
-            border-radius: 4px;
-            font-weight: bold;
-            font-size: 0.85rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: opacity 0.2s;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.3rem;
         }
-        .btn-action:hover { opacity: 0.9; }
-        .btn-edit { background-color: #f39c12; color: white; }
-        .btn-delete { background-color: var(--danger-color); color: white; }
 
-        /* Footer */
+        .btn-edit { background-color: #f1f5f9; color: #d97706; border: 1px solid #fde68a; }
+        .btn-edit:hover { background-color: #fef3c7; }
+        .btn-delete { background-color: #fef2f2; color: var(--danger-color); border: 1px solid #fee2e2; }
+        .btn-delete:hover { background-color: #fee2e2; }
+
         footer {
             text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
+            padding: 2.5rem;
+            margin-top: 5rem;
             background-color: var(--secondary-color);
             color: white;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
-            header h1 { font-size: 2rem; }
-            nav { padding: 0.5rem; gap: 0.3rem; }
-            .menu-btn { padding: 0.5rem 0.9rem; font-size: 0.85rem; }
+            header h1 { font-size: 2.2rem; }
+            nav { padding: 0.6rem; gap: 0.4rem; }
+            .menu-btn { padding: 0.5rem 1rem; font-size: 0.85rem; }
             .products-grid { grid-template-columns: 1fr; }
+            .admin-section { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>COWAY</h1>
-        <p>Katalog Digital Produk Premium & Dashboard Pengurusan Kandungan</p>
+        <h1>COWAY PREMIUM HUB</h1>
+        <p>Katalog Digital dengan Simpanan Kekal (Anti-Loss Auto Save)</p>
     </header>
 
     <nav id="main-nav">
@@ -363,130 +408,558 @@
         <button class="menu-btn" onclick="filterCategory('tilam', this)">Tilam</button>
         <button class="menu-btn" onclick="filterCategory('washer-dryer', this)">Washer Dryer</button>
         <button class="menu-btn" onclick="filterCategory('massage-chair', this)">Massage Chair</button>
-        <button class="menu-btn admin-btn" onclick="paparDashboard()">➕ Urus & Tambah Produk</button>
+        <button class="menu-btn admin-btn" onclick="paparDashboard()">⚙️ Dashboard Editor</button>
     </nav>
 
     <div class="container">
         
-        <!-- DASHBOARD EDIT / TAMBAH PRODUK -->
+        <div class="reset-container">
+            <button class="btn-reset-db" onclick="resetKeAsal()">🔄 Set Semula Data Asal</button>
+        </div>
+
         <div class="admin-section" id="adminDashboard">
-            <h2 id="formTitle" style="margin-bottom: 1rem; color: var(--accent-color);">Tambah Produk Baru</h2>
+            <h2 id="formTitle" style="margin-bottom: 1.5rem; color: var(--secondary-color);">Tambah / Sunting Maklumat Produk</h2>
+            <p style="margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-light); background-color: #f8fafc; padding: 0.5rem 1rem; border-radius: 6px; border-left: 3px solid var(--accent-color);">
+                ℹ️ <strong>Nota Gambar Dinamik:</strong> Untuk keselamatan, imej diletakkan secara automatik mengikut kategori produk pilihan anda secara sistematik (.jpg links sedia ada).
+            </p>
             <form id="productForm" onsubmit="simpanProduk(event)">
                 <input type="hidden" id="editProductId" value="">
                 
-                <div class="form-group">
-                    <label for="prodKategori">Kategori Produk</label>
-                    <select id="prodKategori" class="form-control" required>
-                        <option value="penapis-air">Penapis Air</option>
-                        <option value="penapis-udara">Penapis Udara</option>
-                        <option value="aircond">Aircond</option>
-                        <option value="tilam">Tilam</option>
-                        <option value="washer-dryer">Washer Dryer</option>
-                        <option value="massage-chair">Massage Chair</option>
-                    </select>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="prodKategori">Kategori</label>
+                        <select id="prodKategori" class="form-control" required>
+                            <option value="penapis-air">Penapis Air</option>
+                            <option value="penapis-udara">Penapis Udara</option>
+                            <option value="aircond">Aircond</option>
+                            <option value="tilam">Tilam</option>
+                            <option value="washer-dryer">Washer Dryer</option>
+                            <option value="massage-chair">Massage Chair</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="prodNama">Nama Produk</label>
+                        <input type="text" id="prodNama" class="form-control" placeholder="Contoh: VILLAEM III" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="prodTag">Tag Status / Label</label>
+                        <input type="text" id="prodTag" class="form-control" placeholder="Contoh: Paling Laris / Premium" required>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="prodNama">Nama Produk</label>
-                    <input type="text" id="prodNama" class="form-control" placeholder="Contoh: VILLAEM III" required>
+                <div class="form-group full-width">
+                    <label for="prodSpecs">Spesifikasi & Ciri Utama (Satu ciri per baris)</label>
+                    <textarea id="prodSpecs" class="form-control" rows="5" placeholder="Masukkan maklumat ciri produk..." required></textarea>
                 </div>
 
-                <div class="form-group">
-                    <label for="prodTag">Tag / Label Pendek</label>
-                    <input type="text" id="prodTag" class="form-control" placeholder="Contoh: Paling Laris / Model Terbaru" required>
+                <div class="form-group full-width">
+                    <label for="prodPricing">Pelan Harga Kontrak (Satu pelan per baris. Format: Nama Pakej | Harga)</label>
+                    <textarea id="prodPricing" class="form-control" rows="4" placeholder="Contoh: Pakej 7 Tahun | RM84 / bulan" required></textarea>
                 </div>
 
-                <div class="form-group">
-                    <label for="prodImg">URL Imej Gambar (Sila letakkan pautan imej web)</label>
-                    <input type="url" id="prodImg" class="form-control" placeholder="Contoh: https://images.unsplash.com/photo-1585435557343-3b092031a831?w=400">
+                <div class="form-group full-width">
+                    <label for="prodPromo">Butiran Promosi Istimewa</label>
+                    <input type="text" id="prodPromo" class="form-control" placeholder="Contoh: Promo Anniversary: RM20 / bulan untuk 7 bulan pertama">
                 </div>
 
-                <div class="form-group">
-                    <label for="prodSpecs">Maklumat Ciri-Ciri (Asingkan setiap ciri dengan baris baru)</label>
-                    <textarea id="prodSpecs" class="form-control" rows="4" placeholder="Contoh:&#10;3 Tetapan Suhu Air&#10;UV Sterilization&#10;Eco mode: jimat elektrik" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="prodPricing">Harga / Pakej Pelan (Asingkan Nama Pakej & Harga dengan tanda palang '|')</label>
-                    <textarea id="prodPricing" class="form-control" rows="3" placeholder="Contoh:&#10;Pakej 7 Tahun | RM84 / bulan&#10;Pakej 5 Tahun | RM104 / bulan" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="prodPromo">Info Promosi (Opsional)</label>
-                    <input type="text" id="prodPromo" class="form-control" placeholder="Contoh: Anniversary Promo: RM20/bulan untuk 7 bulan pertama">
-                </div>
-
-                <button type="submit" class="btn-submit" id="submitBtn">Simpan Produk</button>
+                <button type="submit" class="btn-submit" id="submitBtn">Simpan Maklumat</button>
                 <button type="button" class="btn-cancel" onclick="tutupDashboard()">Batal</button>
             </form>
         </div>
 
-        <!-- TEMPAT PAPARAN KAD PRODUK -->
         <div id="products-container"></div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Coway Malaysia Promo Catalogue. Versi Premium dengan Sistem Suntingan.</p>
+        <p>&copy; 2026 Coway Malaysia Hub. Built with LocalStorage Auto-Persistence Architecture.</p>
     </footer>
 
     <script>
-        // Data permulaan (berdasarkan fail PDF anda)[cite: 1]
-        let dataProduk = [
+        // Gambar default (.jpg) yang disetkan secara terus mengikut kategori & produk untuk hasil katalog yang realistik
+        const backupImages = {
+            "aircond": "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+            "tilam": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+            "penapis-air": "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+            "penapis-udara": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+            "washer-dryer": "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+            "massage-chair": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3"
+        };
+
+        // KESELURUHAN DATA ASAL PROSES DARI MANUAL COWAY
+        const dataAsalProduk = [
             {
                 id: 1,
                 kategori: "aircond",
                 nama: "F-SERIES Aircond",
-                tag: "Aircond + Air Filter",
-                image: "",
-                specs: ["2 in 1 aircond + air filter (Hepa Filter)", "Jimat elektrik-5 star energy saving!", "5 Steps filteration system", "Heat Sterilization - self cleaning"],
-                pricing: [{pelan: "5 Tahun (1.0 HP)", harga: "RM100 / bln"}, {pelan: "7 Tahun (1.0 HP)", harga: "RM80 / bln"}],
-                promo: "tambahan Rebate diskaun RM10 sehingga 20 bulan"
+                tag: "2 in 1 Aircond",
+                image: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=500&q=80.jpg",
+                specs: [
+                    "2 in 1 aircond + air filter (Hepa Filter)",
+                    "Jimat elektrik - 5 star energy saving!",
+                    "5 Steps filtration system",
+                    "4 in 1 filter - HEPA filter",
+                    "Gentle Cold Wind - kurangkan penggunaan elektrik",
+                    "Heat Sterilization - self cleaning",
+                    "7 Step Hygiene Care Service"
+                ],
+                pricing: [
+                    { pelan: "5 Tahun - 1.0 HP", harga: "RM100 / bulan" },
+                    { pelan: "5 Tahun - 1.5 HP", harga: "RM110 / bulan" },
+                    { pelan: "7 Tahun - 1.0 HP", harga: "RM80 / bulan" },
+                    { pelan: "7 Tahun - 1.5 HP", harga: "RM90 / bulan" }
+                ],
+                promo: "Tambahan Rebate diskaun RM10 sehingga 20 bulan"
             },
             {
                 id: 2,
-                kategori: "penapis-air",
-                nama: "VILLAEM III",
-                tag: "MODEL PALING LARIS",
-                image: "",
-                specs: ["3 Tetapan Suhu Air", "Air Sejuk: 2.6 Liter | Panas: 2.7 Liter", "UV Sterilization", "Design: Modern digital button"],
-                pricing: [{pelan: "Pakej 7 Tahun (Servis 2 bulan)", harga: "RM84 / bulan"}, {pelan: "Pakej 5 Tahun (Servis 2 bulan)", harga: "RM104 / bulan"}],
-                promo: "Promo Anniversary: RM20/ bulan (7 BULAN PERTAMA)"
+                kategori: "aircond",
+                nama: "P-Series Aircond",
+                tag: "Premium Aircond",
+                image: "https://images.unsplash.com/photo-1621905252485-39452329241c?w=500&q=80.jpg",
+                specs: [
+                    "2 in 1 aircond + air filter (Hepa Filter)",
+                    "Jimat elektrik - 5 star energy saving!",
+                    "5 Steps filtration system",
+                    "4 in 1 filter - HEPA filter",
+                    "Gentle Cold Wind - kurangkan penggunaan elektrik",
+                    "Heat Sterilization - self cleaning",
+                    "7 Step Hygiene Care Service"
+                ],
+                pricing: [
+                    { pelan: "5 Tahun - 1.0 HP", harga: "RM100 / bulan" },
+                    { pelan: "5 Tahun - 1.5 HP", harga: "RM110 / bulan" },
+                    { pelan: "5 Tahun - 2.0 HP", harga: "RM129 / bulan" },
+                    { pelan: "7 Tahun - 1.0 HP", harga: "RM80 / bulan" },
+                    { pelan: "7 Tahun - 1.5 HP", harga: "RM90 / bulan" },
+                    { pelan: "7 Tahun - 2.0 HP", harga: "RM109 / bulan" }
+                ],
+                promo: "Tambahan Rebate diskaun RM10 sehingga 20 bulan"
             },
             {
                 id: 3,
-                kategori: "penapis-air",
-                nama: "NEON",
-                tag: "Model Terbaru",
-                image: "",
-                specs: ["3 Tetapan Suhu Air", "Air Sejuk: 1.5 Liter | Panas: 1.0 Liter", "Eco mode: jimat elektrik", "5 pilihan warna menarik"],
-                pricing: [{pelan: "Pakej 7 Tahun (Servis 4 bulan)", harga: "RM59 / bulan"}, {pelan: "Pakej 7 Tahun (Self Service)", harga: "RM54 / bulan"}],
-                promo: "Promo Anniversary: RM20/ bulan (7 BULAN PERTAMA)"
+                kategori: "tilam",
+                nama: "Primelite Queen SET (With Service)",
+                tag: "Set Katil & Tilam",
+                image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500&q=80.jpg",
+                specs: [
+                    "Siri Prime Lite Berkualiti Coway",
+                    "Ada 5 zon pocket spring",
+                    "Rasa selesa & stabil, sesuai untuk tidur lama",
+                    "Ketebalan: 10.5 inci",
+                    "Sokongan asas tapi tetap selesa"
+                ],
+                pricing: [
+                    { pelan: "Pakej Kontrak 5 Tahun", harga: "Harga Asal RM139 (3 bulan pertama RM20)" },
+                    { pelan: "Pakej Kontrak 7 Tahun", harga: "Harga Asal RM109 (5 bulan pertama RM20)" }
+                ],
+                promo: "Promosi bulan terawal serendah RM20 sebulan!"
             },
             {
                 id: 4,
+                kategori: "tilam",
+                nama: "Primelite Queen SET (Without Service)",
+                tag: "Set Katil & Tilam",
+                image: "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=500&q=80.jpg",
+                specs: [
+                    "Siri Prime Lite (Tanpa Servis Berkala)",
+                    "Ada 5 zon pocket spring",
+                    "Ketebalan: 10.5 inci"
+                ],
+                pricing: [
+                    { pelan: "Pakej Kontrak 5 Tahun", harga: "Harga Asal RM109 (5 bulan pertama RM20)" },
+                    { pelan: "Pakej Kontrak 7 Tahun", harga: "Harga Asal RM79 (3 bulan pertama RM20)" }
+                ],
+                promo: "Promosi Penjimatan Tanpa Servis berkala"
+            },
+            {
+                id: 5,
+                kategori: "tilam",
+                nama: "Primelite Queen Mattress ONLY (With Service)",
+                tag: "Tilam Sahaja",
+                image: "https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=500&q=80.jpg",
+                specs: [
+                    "Tilam Sahaja (Termasuk Servis Berkala)",
+                    "Ada 5 zon pocket spring",
+                    "Ketebalan: 10.5 inci"
+                ],
+                pricing: [
+                    { pelan: "Pakej Kontrak 5 Tahun", harga: "Harga Asal RM99 (3 bulan pertama RM20)" },
+                    { pelan: "Pakej Kontrak 7 Tahun", harga: "Harga Asal RM79 (5 bulan pertama RM20)" }
+                ],
+                promo: "Keselesaan Optimum Tilam Prime Lite"
+            },
+            {
+                id: 6,
+                kategori: "tilam",
+                nama: "Primelite Queen Mattress ONLY (Without Service)",
+                tag: "Tilam Sahaja",
+                image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=80.jpg",
+                specs: [
+                    "Tilam Sahaja (Tanpa Servis Berkala)",
+                    "5 zon pocket spring, sesuai untuk bajet"
+                ],
+                pricing: [
+                    { pelan: "Pakej Kontrak 5 Tahun", harga: "Harga Asal RM69 (3 bulan pertama RM20)" },
+                    { pelan: "Pakej Kontrak 7 Tahun", harga: "Harga Asal RM49 (5 bulan pertama RM20)" }
+                ],
+                promo: "Pilihan paling jimat dan bernilai tinggi"
+            },
+            {
+                id: 7,
+                kategori: "tilam",
+                nama: "Prime II Series KING (Without Service)",
+                tag: "Siri Mewah King",
+                image: "https://images.unsplash.com/photo-1505692952047-1a78307ca8f2?w=500&q=80.jpg",
+                specs: [
+                    "Ada 7 zon pocket spring + lapisan latex",
+                    "Rasa lebih empuk & premium",
+                    "Sokongan badan lebih menyeluruh",
+                    "Ketebalan super: 13.5 inci",
+                    "Model bersaiz besar KING"
+                ],
+                pricing: [
+                    { pelan: "7 Tahun Kontrak (Mattress Only)", harga: "RM85 / bulan" },
+                    { pelan: "7 Tahun Kontrak (Mattress + Bed)", harga: "RM129 / bulan" },
+                    { pelan: "5 Tahun Kontrak (Mattress Only)", harga: "RM105 / bulan" },
+                    { pelan: "5 Tahun Kontrak (Mattress + Bed)", harga: "RM159 / bulan" }
+                ],
+                promo: "Untuk yang nak rasa tidur mewah & empuk!"
+            },
+            {
+                id: 8,
+                kategori: "tilam",
+                nama: "Prime II Series KING (With Service)",
+                tag: "Mewah + Servis",
+                image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=500&q=80.jpg",
+                specs: [
+                    "7 zon pocket spring + lapisan latex",
+                    "Ketebalan mewah 13.5 inci dengan Coway Service"
+                ],
+                pricing: [
+                    { pelan: "7 Tahun Kontrak (Mattress Only)", harga: "RM115 / bulan" },
+                    { pelan: "7 Tahun Kontrak (Mattress + Bed)", harga: "RM159 / bulan" },
+                    { pelan: "5 Tahun Kontrak (Mattress Only)", harga: "RM135 / bulan" },
+                    { pelan: "5 Tahun Kontrak (Mattress + Bed)", harga: "RM189 / bulan" }
+                ],
+                promo: "Penjagaan tidur yang bersih secara maksimum"
+            },
+            {
+                id: 9,
+                kategori: "tilam",
+                nama: "Prime II Series QUEEN (Without Service)",
+                tag: "Siri Mewah Queen",
+                image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500&q=80.jpg",
+                specs: [
+                    "7 zon pocket spring + lapisan latex",
+                    "Rasa lebih empuk & premium",
+                    "Ketebalan: 13.5 inci"
+                ],
+                pricing: [
+                    { pelan: "7 Tahun Kontrak (Mattress Only)", harga: "RM70 / bulan" },
+                    { pelan: "7 Tahun Kontrak (Mattress + Bed)", harga: "RM109 / bulan" },
+                    { pelan: "5 Tahun Kontrak (Mattress Only)", harga: "RM90 / bulan" },
+                    { pelan: "5 Tahun Kontrak (Mattress + Bed)", harga: "RM139 / bulan" }
+                ],
+                promo: "Sokongan badan menyeluruh saiz Queen"
+            },
+            {
+                id: 10,
+                kategori: "tilam",
+                nama: "Prime II Series QUEEN (With Service)",
+                tag: "Mewah + Servis",
+                image: "https://images.unsplash.com/photo-1505693395321-883724634266?w=500&q=80.jpg",
+                specs: [
+                    "7 zon pocket spring + lapisan latex mewah",
+                    "Ketebalan 13.5 inci dengan jaminan servis berkala"
+                ],
+                pricing: [
+                    { pelan: "7 Tahun Kontrak (Mattress Only)", harga: "RM100 / bulan" },
+                    { pelan: "7 Tahun Kontrak (Mattress + Bed)", harga: "RM139 / bulan" },
+                    { pelan: "5 Tahun Kontrak (Mattress Only)", harga: "RM120 / bulan" },
+                    { pelan: "5 Tahun Kontrak (Mattress + Bed)", harga: "RM169 / bulan" }
+                ],
+                promo: "Siri kemewahan katil premium Coway"
+            },
+            {
+                id: 11,
+                kategori: "penapis-air",
+                nama: "VILLAEM III",
+                tag: "PALING LARIS",
+                image: "Villeam_3.jpg",
+                specs: [
+                    "3 Tetapan Suhu Air (Sejuk: 2.6L | Panas: 2.7L | Biasa: 6.1L)",
+                    "Suhu Panas Fleksibel: (95/85/70/60/50/40) Celcius",
+                    "Size: (310x523x520)mm",
+                    "Water: RO Water",
+                    "Design: Modern digital button, Safety Child Lock & Sleep mode",
+                    "UV Sterilization & Servis: FREE 7 tahun",
+                    "2 pilihan warna disediakan"
+                ],
+                pricing: [
+                    { pelan: "7 Tahun Pakej (Servis 2 Bulan Sekali)", harga: "RM84 / bulan" },
+                    { pelan: "7 Tahun Pakej (Servis 4 Bulan Sekali)", harga: "RM74 / bulan" },
+                    { pelan: "5 Tahun Pakej (Servis 2 Bulan Sekali)", harga: "RM104 / bulan" },
+                    { pelan: "5 Tahun Pakej (Servis 4 Bulan Sekali)", harga: "RM94 / bulan" }
+                ],
+                promo: "Anniversary: Pakej 7 Thn = RM20/bln (7 bln pertama) | Pakej 5 Thn = RM20/bln (5 bln pertama)"
+            },
+            {
+                id: 12,
+                kategori: "penapis-air",
+                nama: "NEON",
+                tag: "Model Terbaru",
+                image: "img/Neon.jpg",
+                specs: [
+                    "3 Tetapan Suhu Air (Sejuk: 1.5L | Panas: 1.0L | Biasa: Tiada Had)",
+                    "Design: Modern digital button dengan Safety Child Lock",
+                    "Eco mode: jimat tenaga elektrik",
+                    "Service: Coway Service atau service sendiri",
+                    "Tersedia dalam 5 pilihan warna eksklusif"
+                ],
+                pricing: [
+                    { pelan: "7 Tahun Pakej (Servis 4 Bulan Sekali)", harga: "RM59 / bulan" },
+                    { pelan: "7 Tahun Pakej (Self Service)", harga: "RM54 / bulan" },
+                    { pelan: "5 Tahun Pakej (Servis 4 Bulan Sekali)", harga: "RM79 / bulan" },
+                    { pelan: "5 Tahun Pakej (Self Service)", harga: "RM74 / bulan" }
+                ],
+                promo: "Anniversary: RM20 / bulan (7 bulan pertama bagi pakej 7 tahun / 5 bulan bagi pakej 5 tahun)"
+            },
+            {
+                id: 13,
+                kategori: "penapis-air",
+                nama: "NEO PLUS",
+                tag: "Promosi Hebat",
+                image: "img/NPlus.jpg",
+                specs: [
+                    "3 Tetapan Suhu Air (Sejuk: 2.3L | Panas: 1.0L | Biasa: 2.5L)",
+                    "Size: (260x483x500)mm | Air Jenis RO Water",
+                    "Design: Sistem Manual Tradisional",
+                    "Safety Child Lock & Eco mode jimat elektrik",
+                    "Servis: FREE 7 tahun | 1 pilihan warna"
+                ],
+                pricing: [
+                    { pelan: "7 Tahun Pakej (Servis 2 Bulan)", harga: "RM69 / bulan" },
+                    { pelan: "7 Tahun Pakej (Servis 4 Bulan)", harga: "RM59 / bulan" },
+                    { pelan: "5 Tahun Pakej (Servis 2 Bulan)", harga: "RM89 / bulan" },
+                    { pelan: "5 Tahun Pakej (Servis 4 Bulan)", harga: "RM79 / bulan" }
+                ],
+                promo: "Anniversary Promo: RM20 / bulan untuk 5 hingga 7 bulan terawal!"
+            },
+            {
+                id: 14,
                 kategori: "washer-dryer",
                 nama: "Washer Dryer 2 In 1",
-                tag: "Harga PROMOSI",
-                image: "",
-                specs: ["Kapasiti: 10kg cuci / 6kg kering", "Inverter Direct Drive - jimat & senyap", "Suhu hingga 90°C - bunuh kuman", "Free Installation & Service"],
-                pricing: [{pelan: "Pakej 7 Tahun (Servis 6 bulan)", harga: "RM79 / bulan"}, {pelan: "Pakej 5 Tahun (Servis 6 bulan)", harga: "RM99 / bulan"}],
-                promo: "Promo Anniversary: RM20/ bulan (7 BULAN PERTAMA)"
+                tag: "Dwi Fungsi",
+                image: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=500&q=80.jpg",
+                specs: [
+                    "Kapasiti hebat: 10kg cuci / 6kg kering",
+                    "Inverter Direct Drive – jimat elektrik, senyap",
+                    "Suhu tinggi sehingga 90°C – bunuh kuman efektif",
+                    "Mod khas untuk pengeringan & menanggal kotoran degil",
+                    "1 tombol kawalan – mudah & pantas diurus",
+                    "Waranti penuh sepanjang tempoh langganan"
+                ],
+                pricing: [
+                    { pelan: "7 Tahun Pakej (Servis 6 Bulan)", harga: "RM79 / bulan" },
+                    { pelan: "7 Tahun Pakej (Self Service)", harga: "RM74 / bulan" },
+                    { pelan: "5 Tahun Pakej (Servis 6 Bulan)", harga: "RM99 / bulan" },
+                    { pelan: "5 Tahun Pakej (Self Service)", harga: "RM94 / bulan" }
+                ],
+                promo: "Pakej Termasuk: 7 Tahun Warranty + Free Installation + Free Service!"
+            },
+            {
+                id: 15,
+                kategori: "massage-chair",
+                nama: "MASSAGE CHAIR (Siri Standard)",
+                tag: "Urutan Klasik",
+                image: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=500&q=80.jpg",
+                specs: [
+                    "Sistem Urutan Penuh Badan",
+                    "Teknologi Pintar Bersepadu",
+                    "Sistem Kedudukan Zero Gravity",
+                    "Rel Urutan Panjang Jenis L-Track"
+                ],
+                pricing: [{ pelan: "Harga Promosi Sewaan", harga: "RM20 / bulan" }],
+                promo: "Harga Istimewa RM20 Sebulan!"
+            },
+            {
+                id: 16,
+                kategori: "massage-chair",
+                nama: "SENNO (Siri Urutan Pintar)",
+                tag: "Teknologi 4D",
+                image: "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=500&q=80.jpg",
+                specs: [
+                    "Urutan 4D Pintar Menyeluruh",
+                    "Sistem Kawalan Mudah Guna",
+                    "Sistem Airbag Penuh (Full Body Airbag)",
+                    "Memberikan Rehat Maksimum kepada otot"
+                ],
+                pricing: [{ pelan: "Harga Promosi Sewaan", harga: "RM20 / bulan" }],
+                promo: "Promosi Terhad Hanya RM20 Sebulan!"
+            },
+            {
+                id: 17,
+                kategori: "massage-chair",
+                nama: "MINE (Siri Kompak)",
+                tag: "Kompak Elegan",
+                image: "https://images.unsplash.com/photo-1592078615290-033ee584e267?w=500&q=80.jpg",
+                specs: [
+                    "Rekaan Kompak & Sangat Elegan",
+                    "Fokus Urutan Khusus Bahu & Pinggang",
+                    "Mod Automatik Pintar",
+                    "Sangat Jimat Ruang & Tenaga Elektrik"
+                ],
+                pricing: [{ pelan: "Harga Promosi Sewaan", harga: "RM20 / bulan" }],
+                promo: "Promosi Terhad Hanya RM20 Sebulan!"
+            },
+            {
+                id: 18,
+                kategori: "massage-chair",
+                nama: "SENNO PLUS (Siri Premium)",
+                tag: "Deep Tissue",
+                image: "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500&q=80.jpg",
+                specs: [
+                    "Urutan Advanced 4D & Deep Tissue",
+                    "Rel Panjang Struktur SL-Track",
+                    "Terapi Haba Khas di bahagian Pinggang",
+                    "Edisi Paling Premium & Eksklusif"
+                ],
+                pricing: [{ pelan: "Harga Promosi Sewaan", harga: "RM20 / bulan" }],
+                promo: "Edisi Premium Promosi Hanya RM20 Sebulan!"
+            },
+            {
+                id: 19,
+                kategori: "penapis-udara",
+                nama: "Coway SUITE",
+                tag: "Rumah Sederhana",
+                image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&q=80.jpg",
+                specs: [
+                    "Sesuai untuk Ruang tamu / rumah sederhana",
+                    "HyperVortex™ Technology – aliran udara stabil",
+                    "3-in-1 Composite HEPA Filter (Tapis 99.999% habuk & gas)",
+                    "Operasi senyap – 23.7 dB | Sensor Pintar PM1.0, PM2.5 & PM10",
+                    "Auto, Sleep, Turbo & Eco Mode | Jimat elektrik – 72W",
+                    "Coverage liputan kawasan sehingga 92 m²"
+                ],
+                pricing: [
+                    { pelan: "7 Tahun Pakej (Servis 4 bulan)", harga: "RM65 / bulan" },
+                    { pelan: "7 Tahun Pakej (Self Service)", harga: "RM60 / bulan" },
+                    { pelan: "5 Tahun Pakej (Servis 4 bulan)", harga: "RM85 / bulan" },
+                    { pelan: "5 Tahun Pakej (Self Service)", harga: "RM80 / bulan" }
+                ],
+                promo: "Anniversary: RM20 / bulan (7 bulan pertama untuk pakej 7 thn / 5 bulan untuk pakej 5 thn)"
+            },
+            {
+                id: 20,
+                kategori: "penapis-udara",
+                nama: "Model Storm 2",
+                tag: "2 in 1 Hybrid",
+                image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=500&q=80.jpg",
+                specs: [
+                    "Dual-Fungsi: 2in1, penapis udara + kipas aliran",
+                    "Mempunyai 4 lapisan filter bersama Double HEPA filter",
+                    "2.5x lebih kuasa sedutan berbanding biasa",
+                    "22% lebih senyap & 33% lebih jimat elektrik",
+                    "Coverage area seluas 50 meter persegi"
+                ],
+                pricing: [
+                    { pelan: "7 Tahun Pakej (Servis 2 bulan)", harga: "RM70 / bulan" },
+                    { pelan: "7 Tahun Pakej (Servis 4 bulan)", harga: "RM60 / bulan" },
+                    { pelan: "7 Tahun Pakej (Self Service)", harga: "RM55 / bulan" },
+                    { pelan: "5 Tahun Pakej (Servis 2_bulan)", harga: "RM90 / bulan" },
+                    { pelan: "5 Tahun Pakej (Servis 4_bulan)", harga: "RM80 / bulan" },
+                    { pelan: "5 Tahun Pakej (Self Service)", harga: "RM75 / bulan" }
+                ],
+                promo: "Anniversary: RM20 / bulan (Bulan-bulan terawal mengikut tempoh kontrak)"
+            },
+            {
+                id: 21,
+                kategori: "penapis-udara",
+                nama: "Coway ATRIUM",
+                tag: "Rumah Besar / Luas",
+                image: "https://images.unsplash.com/photo-1581092162384-8987c1d64718?w=500&q=80.jpg",
+                specs: [
+                    "Sesuai untuk Rumah besar / landed / ruang luas",
+                    "Quad Inlet + Dual Motors (Kuasa Padu)",
+                    "Double Composite HEPA Filter (Tapis 99.999% habuk ultra-halus & bau)",
+                    "Ada Silent Mode khas (kuat tapi senyap) | Sensor lengkap PM1.0, PM2.5 & PM10",
+                    "Jimat elektrik untuk saiz besar – hanya 65W",
+                    "Coverage luas menakjubkan sehingga 116 m²"
+                ],
+                pricing: [
+                    { pelan: "7 Tahun Pakej (Servis 2 bulan)", harga: "RM99 / bulan" },
+                    { pelan: "7 Tahun Pakej (Servis 4 bulan)", harga: "RM89 / bulan" },
+                    { pelan: "5 Tahun Pakej (Servis 2_bulan)", harga: "RM119 / bulan" },
+                    { pelan: "5 Tahun Pakej (Servis 4 bulan)", harga: "RM109 / bulan" }
+                ],
+                promo: "Anniversary Promo: RM20 / bulan awal kontrak (7 atau 5 bulan)"
+            },
+            {
+                id: 22,
+                kategori: "penapis-udara",
+                nama: "Coway STUDIO",
+                tag: "Ruang Kecil / Bilik",
+                image: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=500&q=80.jpg",
+                specs: [
+                    "Sesuai untuk Rumah kecil / bilik / apartment",
+                    "HyperVortex™ Technology – sedutan kuat tapi senyap",
+                    "3-in-1 Composite HEPA Filter (Tapis 99.999% habuk ultra-halus 0.01µm)",
+                    "Bunyi serendah 21.6 dB (Sangat sesuai waktu tidur)",
+                    "Auto, Sleep, Turbo & Eco Mode | Jimat elektrik – 62W",
+                    "Coverage reka bentuk sehingga 76 m²"
+                ],
+                pricing: [
+                    { pelan: "7 Tahun Pakej (Servis 4 bulan)", harga: "RM54 / bulan" },
+                    { pelan: "7 Tahun Pakej (Self Service)", harga: "RM49 / bulan" },
+                    { pelan: "5 Tahun Pakej (Servis 4_bulan)", harga: "RM74 / bulan" },
+                    { pelan: "5 Tahun Pakej (Self Service)", harga: "RM69 / bulan" }
+                ],
+                promo: "Anniversary Promo: Bayar hanya RM20 / bulan pada peringkat awal kontrak!"
             }
         ];
 
+        // Memuatkan data dari LocalStorage, jika tiada ia akan dimulakan dengan dataAsalProduk di atas
+        let dataProduk = [];
+        try {
+            const localData = localStorage.getItem('coway_products_db');
+            if (localData) {
+                dataProduk = JSON.parse(localData);
+            } else {
+                dataProduk = [...dataAsalProduk];
+                localStorage.setItem('coway_products_db', JSON.stringify(dataProduk));
+            }
+        } catch (e) {
+            console.error("Gagal memuatkan simpanan LocalStorage", e);
+            dataProduk = [...dataAsalProduk];
+        }
+
         const namaKategori = {
-            "semua": "Semua Produk Coway",
-            "penapis-air": "Koleksi Penapis Air",
-            "penapis-udara": "Koleksi Penapis Udara",
+            "semua": "Semua Produk Kontrak Coway",
+            "penapis-air": "Siri Penapis Air Berteknologi",
+            "penapis-udara": "Siri Penapis Udara Bersih",
             "aircond": "Siri Air Conditioner (Aircond)",
-            "tilam": "Siri Tilam Ergonomik",
-            "washer-dryer": "Siri Washer Dryer 2 In 1",
-            "massage-chair": "Pilihan Kerusi Urut"
+            "tilam": "Siri Tilam Orthopedik & Premium",
+            "washer-dryer": "Siri Washer Dryer Pintar",
+            "massage-chair": "Siri Kerusi Urut Relaksasi"
         };
 
         let kategoriSemasa = "semua";
 
-        // Memaparkan Senarai Kad Produk
+        // Simpan data terkini secara auto ke LocalStorage
+        function simpanKeLocalStorage() {
+            localStorage.setItem('coway_products_db', JSON.stringify(dataProduk));
+        }
+
+        function resetKeAsal() {
+            if (confirm("Adakah anda pasti mahu memadam semua perubahan dan mengembalikan ke senarai asal katalog?")) {
+                dataProduk = JSON.parse(JSON.stringify(dataAsalProduk)); // deep copy asal
+                simpanKeLocalStorage();
+                kemaskiniPaparan();
+                tutupDashboard();
+                alert("Katalog telah berjaya ditetapkan semula ke data asal.");
+            }
+        }
+
         function paparProduk(senaraiProduk, kategoriKey) {
             const container = document.getElementById("products-container");
             container.innerHTML = ""; 
@@ -500,23 +973,19 @@
             grid.className = "products-grid";
 
             senaraiProduk.forEach(produk => {
-                let specsHTML = "";
-                produk.specs.forEach(spec => { specsHTML += `<li>${spec}</li>`; });
+                let specsHTML = produk.specs.map(spec => `<li>${spec}</li>`).join('');
+                let pricingHTML = produk.pricing.map(prc => `
+                    <div class="price-row">
+                        <span>${prc.pelan}</span>
+                        <strong>${prc.harga}</strong>
+                    </div>
+                `).join('');
 
-                let pricingHTML = "";
-                produk.pricing.forEach(prc => {
-                    pricingHTML += `
-                        <div class="price-row">
-                            <span>${prc.pelan}</span>
-                            <strong>${prc.harga}</strong>
-                        </div>
-                    `;
-                });
-
-                // Papar gambar jika ada URL, jika tiada papar placeholder kotak abu-abu
-                let imgHTML = produk.image 
-                    ? `<img src="${produk.image}" alt="${produk.nama}">` 
-                    : `<span class="no-img-text">[ Tiada Gambar Diletakkan ]</span>`;
+                // Jika image tiada langsung pada produk, fallback kepada default kategori backup
+                let currentImg = produk.image || backupImages[produk.kategori] || "";
+                let imgHTML = currentImg 
+                    ? `<img src="${currentImg}" alt="${produk.nama}">` 
+                    : `<span class="no-img-text">📷 Tiada Gambar Ditetapkan</span>`;
 
                 const cardHTML = `
                     <div class="product-card">
@@ -532,12 +1001,12 @@
                                 <ul>${specsHTML}</ul>
                             </div>
                             <div class="pricing-section">
-                                <div class="pricing-title">Pelan Sewaan:</div>
+                                <div class="pricing-title">Struktur Pakej:</div>
                                 ${pricingHTML}
                                 ${produk.promo ? `<div class="promo-banner">🎉 ${produk.promo}</div>` : ''}
                             </div>
                             <div class="action-container">
-                                <button class="btn-action btn-edit" onclick="isiBorangEdit(${produk.id})">✏️ Edit</button>
+                                <button class="btn-action btn-edit" onclick="isiBorangEdit(${produk.id})">✏️ Edit Maklumat</button>
                                 <button class="btn-action btn-delete" onclick="padamProduk(${produk.id})">🗑️ Padam</button>
                             </div>
                         </div>
@@ -549,13 +1018,10 @@
             container.appendChild(grid);
         }
 
-        // Tapisan mengikut Kategori Menu
         function filterCategory(kategori, button) {
             kategoriSemasa = kategori;
-            const buttons = document.querySelectorAll('.menu-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.menu-btn').forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-
             kemaskiniPaparan();
         }
 
@@ -563,12 +1029,10 @@
             if (kategoriSemasa === "semua") {
                 paparProduk(dataProduk, "semua");
             } else {
-                const produkDitapis = dataProduk.filter(p => p.kategori === kategoriSemasa);
-                paparProduk(produkDitapis, kategoriSemasa);
+                paparProduk(dataProduk.filter(p => p.kategori === kategoriSemasa), kategoriSemasa);
             }
         }
 
-        // Fungsi Tunjuk & Sembunyi Dashboard Borang
         function paparDashboard() {
             document.getElementById("adminDashboard").style.display = "block";
             document.getElementById("formTitle").innerText = "Tambah Produk Baru";
@@ -580,93 +1044,85 @@
 
         function tutupDashboard() {
             document.getElementById("adminDashboard").style.display = "none";
-            document.getElementById("productForm").reset();
-            document.getElementById("editProductId").value = "";
         }
 
-        // Simpan Data (Sama ada Tambah Baru ATAU Kemaskini Edit)
         function simpanProduk(event) {
             event.preventDefault();
-
             const editId = document.getElementById("editProductId").value;
             const kategori = document.getElementById("prodKategori").value;
             const nama = document.getElementById("prodNama").value;
             const tag = document.getElementById("prodTag").value;
-            const image = document.getElementById("prodImg").value;
             
-            // Proses maklumat ciri (textarea -> array)
-            const specsText = document.getElementById("prodSpecs").value;
-            const specs = specsText.split('\n').filter(line => line.trim() !== '');
-
-            // Proses harga pakej (textarea -> array of objects)
-            const pricingText = document.getElementById("prodPricing").value;
-            const pricingLines = pricingText.split('\n').filter(line => line.trim() !== '');
-            const pricing = pricingLines.map(line => {
+            const specs = document.getElementById("prodSpecs").value.split('\n').filter(line => line.trim() !== '');
+            const pricing = document.getElementById("prodPricing").value.split('\n').filter(line => line.trim() !== '').map(line => {
                 const parts = line.split('|');
-                return {
-                    pelan: parts[0] ? parts[0].trim() : 'Pakej',
-                    harga: parts[1] ? parts[1].trim() : 'RM -'
-                };
+                return { pelan: parts[0] ? parts[0].trim() : 'Pakej', harga: parts[1] ? parts[1].trim() : 'RM -' };
             });
-
             const promo = document.getElementById("prodPromo").value;
 
             if (editId) {
-                // MOD EDIT: Kemaskini produk sedia ada
+                // MOD EDIT: Sunting maklumat lama, kekalkan gambar lama (gambar tidak boleh diubah)
                 const index = dataProduk.findIndex(p => p.id == editId);
                 if (index !== -1) {
-                    dataProduk[index] = { id: parseInt(editId), kategori, nama, tag, image, specs, pricing, promo };
-                    alert("Maklumat produk berjaya dikemaskini!");
+                    const gambarLama = dataProduk[index].image;
+                    dataProduk[index] = { 
+                        id: parseInt(editId), 
+                        kategori, 
+                        nama, 
+                        tag, 
+                        image: gambarLama, // Gambar dikekalkan daripada database
+                        specs, 
+                        pricing, 
+                        promo 
+                    };
                 }
             } else {
-                // MOD TAMBAH: Cipta produk baru
+                // MOD TAMBAH: Tambah produk baru dengan auto pautan imej kategori
                 const idBaru = dataProduk.length > 0 ? Math.max(...dataProduk.map(p => p.id)) + 1 : 1;
-                const produkBaru = { id: idBaru, kategori, nama, tag, image, specs, pricing, promo };
-                dataProduk.push(produkBaru);
-                alert("Produk baru berjaya ditambahkan ke dalam laman web!");
+                const autoImg = backupImages[kategori] || "";
+                dataProduk.push({ 
+                    id: idBaru, 
+                    kategori, 
+                    nama, 
+                    tag, 
+                    image: autoImg, // auto-pautan imej kategori berkualiti tinggi .jpg
+                    specs, 
+                    pricing, 
+                    promo 
+                });
             }
 
+            simpanKeLocalStorage(); // Simpan kekal ke LocalStorage
             tutupDashboard();
             kemaskiniPaparan();
+            alert("Maklumat berjaya disimpan secara selamat!");
         }
 
-        // Isi Borang Automatik Apabila Klik Butang Edit
         function isiBorangEdit(id) {
             const produk = dataProduk.find(p => p.id === id);
             if (!produk) return;
 
             paparDashboard();
-            document.getElementById("formTitle").innerText = `Edit Maklumat: ${produk.nama}`;
-            document.getElementById("submitBtn").innerText = "Kemaskini Maklumat";
-            
-            // Masukkan data lama ke dalam kotak input
+            document.getElementById("formTitle").innerText = `Kemas Kini: ${produk.nama}`;
+            document.getElementById("submitBtn").innerText = "Simpan Perubahan";
             document.getElementById("editProductId").value = produk.id;
             document.getElementById("prodKategori").value = produk.kategori;
             document.getElementById("prodNama").value = produk.nama;
             document.getElementById("prodTag").value = produk.tag;
-            document.getElementById("prodImg").value = produk.image;
             document.getElementById("prodPromo").value = produk.promo;
-
-            // Gabungkan semula array specs menjadi baris demi baris teks
             document.getElementById("prodSpecs").value = produk.specs.join('\n');
-
-            // Gabungkan semula objek harga menjadi teks berformat "Pakej | Harga"
-            const pricingText = produk.pricing.map(p => `${p.pelan} | ${p.harga}`).join('\n');
-            document.getElementById("prodPricing").value = pricingText;
+            document.getElementById("prodPricing").value = produk.pricing.map(p => `${p.pelan} | ${p.harga}`).join('\n');
         }
 
-        // Fungsi Padam Produk
         function padamProduk(id) {
-            if (confirm("Adakah anda pasti mahu memadam produk ini daripada katalog?")) {
+            if (confirm("Adakah anda pasti mahu memadam produk ini secara kekal dari pangkalan data?")) {
                 dataProduk = dataProduk.filter(p => p.id !== id);
+                simpanKeLocalStorage(); // Kemaskini simpanan LocalStorage
                 kemaskiniPaparan();
             }
         }
 
-        // Jalankan paparan awal secara automatik semasa web dibuka
-        window.onload = function() {
-            kemaskiniPaparan();
-        };
+        window.onload = function() { kemaskiniPaparan(); };
     </script>
 </body>
 </html>
